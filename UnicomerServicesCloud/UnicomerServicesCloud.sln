@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnicomerServicesCloud", "UnicomerServicesCloud.csproj", "{45FD55B5-2286-4A1F-9DE1-F7924DF08124}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "..\Tools\Tools.csproj", "{29F9D197-F80B-48B6-A8F1-28F205B7C839}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45FD55B5-2286-4A1F-9DE1-F7924DF08124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45FD55B5-2286-4A1F-9DE1-F7924DF08124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45FD55B5-2286-4A1F-9DE1-F7924DF08124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45FD55B5-2286-4A1F-9DE1-F7924DF08124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29F9D197-F80B-48B6-A8F1-28F205B7C839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29F9D197-F80B-48B6-A8F1-28F205B7C839}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29F9D197-F80B-48B6-A8F1-28F205B7C839}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29F9D197-F80B-48B6-A8F1-28F205B7C839}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F2323779-672B-433D-B4AD-7882B13290D7}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "45fd55b5-2286-4a1f-9de1-f7924df08124": {
+      "ProjectGuid": "45fd55b5-2286-4a1f-9de1-f7924df08124",
+      "DisplayName": "UnicomerServicesCloud",
+      "ColorIndex": 0
+    },
+    "29f9d197-f80b-48b6-a8f1-28f205b7c839": {
+      "ProjectGuid": "29f9d197-f80b-48b6-a8f1-28f205b7c839",
+      "DisplayName": "Tools",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Archivos varios",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 2
+}

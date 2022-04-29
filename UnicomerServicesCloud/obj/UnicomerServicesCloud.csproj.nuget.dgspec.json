@@ -1,0 +1,125 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\UnicomerServicesCloud\\UnicomerServicesCloud.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\UnicomerServicesCloud\\UnicomerServicesCloud.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\UnicomerServicesCloud\\UnicomerServicesCloud.csproj",
+        "projectName": "UnicomerServicesCloud",
+        "projectPath": "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\UnicomerServicesCloud\\UnicomerServicesCloud.csproj",
+        "packagesPath": "C:\\Users\\Samuel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\UnicomerServicesCloud\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Samuel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "Microsoft.AspNetCore.Authentication.Negotiate": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.14.0, )"
+            },
+            "NLog": {
+              "target": "Package",
+              "version": "[4.7.13, )"
+            },
+            "NLog.Web.AspNetCore": {
+              "target": "Package",
+              "version": "[4.14.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "Oracle.ManagedDataAccess.Core": {
+              "target": "Package",
+              "version": "[3.21.50, )"
+            },
+            "OracleClient": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.104\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
