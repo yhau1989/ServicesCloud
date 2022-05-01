@@ -1,0 +1,12 @@
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Core\bin\Debug\net6.0\Core.deps.json
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Core\bin\Debug\net6.0\Core.dll
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Core\bin\Debug\net6.0\Core.pdb
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Core\obj\Debug\net6.0\Core.csproj.AssemblyReference.cache
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Core\obj\Debug\net6.0\Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Core\obj\Debug\net6.0\Core.AssemblyInfoInputs.cache
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Core\obj\Debug\net6.0\Core.AssemblyInfo.cs
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Core\obj\Debug\net6.0\Core.csproj.CoreCompileInputs.cache
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Core\obj\Debug\net6.0\Core.dll
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Core\obj\Debug\net6.0\refint\Core.dll
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Core\obj\Debug\net6.0\Core.pdb
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Core\obj\Debug\net6.0\ref\Core.dll

@@ -1,3 +1,14 @@
+using Core.Interfaces;
+using Core.Response;
+using Infraestructure.Compras;
+using System.Configuration;
+
+
+/*IConfiguration configuration = new ConfigurationBuilder()
+                            .AddJsonFile("appsettings.json")
+                            .Build();
+*/
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +17,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//Injeccion de dependencias
+builder.Services.AddTransient<IHistoricoCompras, HistoricoCompras>();
+
+
+
+
 
 var app = builder.Build();
 

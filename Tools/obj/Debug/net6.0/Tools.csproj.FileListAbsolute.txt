@@ -1,0 +1,15 @@
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\obj\Debug\net6.0\Tools.csproj.AssemblyReference.cache
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\obj\Debug\net6.0\Tools.GeneratedMSBuildEditorConfig.editorconfig
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\obj\Debug\net6.0\Tools.AssemblyInfoInputs.cache
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\obj\Debug\net6.0\Tools.AssemblyInfo.cs
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\obj\Debug\net6.0\Tools.csproj.CoreCompileInputs.cache
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\bin\Debug\net6.0\Tools.deps.json
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\bin\Debug\net6.0\Tools.dll
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\bin\Debug\net6.0\Tools.pdb
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\bin\Debug\net6.0\Core.dll
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\bin\Debug\net6.0\Core.pdb
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\obj\Debug\net6.0\Tools.csproj.CopyComplete
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\obj\Debug\net6.0\Tools.dll
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\obj\Debug\net6.0\refint\Tools.dll
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\obj\Debug\net6.0\Tools.pdb
+C:\Wokspace\AutoRespaldo\Proyectos\SP\ServicesCloud\Tools\obj\Debug\net6.0\ref\Tools.dll

@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tools
+namespace DbSybaseService
 {
-    public class DbAsa12Context
+    public class DbAsa9Context
     {
-        public ResponseMsg ejemploFuncionLeeDataDeAsa()
+      /*  public ResponseMsg ejemploFuncionLeeDataDeAsa()
         {
             ResponseMsg data;
             try
@@ -36,5 +36,6 @@ namespace Tools
 
             return data;
         }
+      */
     }
 }
