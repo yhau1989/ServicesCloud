@@ -104,6 +104,7 @@ namespace Infraestructure.Compras
         {
             // selecciono la factura con que voy a trabajar 
             DataTable dt;
+            bool existeGex;
             dt =   DtDetalle.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta}").CopyToDataTable();
 
             // obtnego las interacciones que debo de realizar por item ( distinct por emisor, factura, pto venta e item
@@ -115,6 +116,7 @@ namespace Infraestructure.Compras
             SaleReturnProdPadre lineItemProd;
             SaleReturnGexPadre lineItemGex;
 
+            
             foreach (DataRow dr in dtDisitnct.Rows)
             {
                 lineItemProd = new SaleReturnProdPadre()
@@ -124,20 +126,24 @@ namespace Infraestructure.Compras
                 };
 
 
-
-               lineItemGex = new SaleReturnGexPadre()
+                existeGex = false;
+                lineItemGex = new SaleReturnGexPadre()
                 {
-                   saleReturn = GetSaleReturnGex(dt, emisor, factura, ptovta, dr["COD_ARTICULO"].ToString()),
+                   saleReturn = GetSaleReturnGex(dt, emisor, factura, ptovta, dr["COD_ARTICULO"].ToString(), ref existeGex),
                    lineItemType = "",
                };
                
                 listlineItem.Add(lineItemProd);
-                listlineItem.Add(lineItemGex);
+                if (existeGex)
+                {
+                    listlineItem.Add(lineItemGex);
+                }
+               
             }                
             return (listlineItem);
         }
 
-        private SaleReturnProd GetSaleReturnProd(DataTable dt, int emisor, int factura, int ptovta, string idItem )
+        private SaleReturnProd GetSaleReturnProd(DataTable dt, int emisor, int factura, int ptovta, string idItem)
         {                        
             DataRow[] drProcuto = null;
             drProcuto = dt.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta} and COD_ARTICULO='{idItem}' and tipo_producto='Producto'");
@@ -178,7 +184,7 @@ namespace Infraestructure.Compras
             return (saleReturn);
         }
 
-        private SaleReturnGex GetSaleReturnGex(DataTable dt, int emisor, int factura, int ptovta, string idItem)
+        private SaleReturnGex GetSaleReturnGex(DataTable dt, int emisor, int factura, int ptovta, string idItem, ref bool existeGex)
         {
 
            // DataRow[] drProcuto = null;
@@ -188,6 +194,8 @@ namespace Infraestructure.Compras
             drGex = dt.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta} and COD_ARTICULO='{idItem}' and tipo_producto='Garantia'");
 
             SaleReturnGex saleReturn = new SaleReturnGex();
+
+            existeGex = false;
 
             if (drGex.Count() > 0)
             {
@@ -214,6 +222,8 @@ namespace Infraestructure.Compras
                         upc = drGex[0]["upc"].ToString()
                     }
                 };
+
+                existeGex = true;
             }
             return (saleReturn);
         }       
