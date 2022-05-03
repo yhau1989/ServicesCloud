@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace UnicomerServicesCloud.Controllers
 {
-    [ApiController]
+   // [ApiController]
     public class HistoricoCompraController : Controller
     {
         private readonly IHistoricoCompras _HistoricoCompras;
