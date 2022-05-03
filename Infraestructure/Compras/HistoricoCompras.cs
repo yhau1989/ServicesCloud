@@ -9,7 +9,6 @@ namespace Infraestructure.Compras
 {
     public class HistoricoCompras : IHistoricoCompras
     {
-
         DbSybaseServiceOdbc dbSybaseServiceOdbc;
         private readonly IConfiguration _configuration;
 
@@ -17,30 +16,25 @@ namespace Infraestructure.Compras
         {
             _configuration = configuration;
         }
+      
 
-        public IEnumerable<RetailTransaction> Get()
+        public List<RetailTransaction> Get(string id_number)
         {
-
             DataTable DtTotal = new DataTable();
             DataTable DtCabecera = new DataTable();
             DataTable DtDetalle = new DataTable();
-
             dbSybaseServiceOdbc = new DbSybaseServiceOdbc(_configuration["AppSettings:ConnectionStringASA17"]);
             dbSybaseServiceOdbc.Initialize();
             OdbcCommand odbcCommand = new OdbcCommand("EXEC dba.SP_SCloud_Facturas ?", dbSybaseServiceOdbc.connection);
             odbcCommand.CommandType = CommandType.StoredProcedure;
-            odbcCommand.Parameters.AddWithValue("@cedula", "0901657080");
+            odbcCommand.Parameters.AddWithValue("@cedula", id_number.Trim());
             var odbcReader = odbcCommand.ExecuteReader();
-
             DtTotal.Load(odbcReader);
-
             if (odbcReader.IsClosed == false)
                 DtCabecera.Load(odbcReader);
             if (odbcReader.IsClosed == false)
                 DtDetalle.Load(odbcReader);
-
             dbSybaseServiceOdbc.Dispose();
-
             List<RetailTransaction> ListHitoricoComprasCliente;
             ListHitoricoComprasCliente = FillHistorioCompras(DtTotal, DtCabecera, DtDetalle);
             return (ListHitoricoComprasCliente);
@@ -48,14 +42,11 @@ namespace Infraestructure.Compras
 
         private List<RetailTransaction> FillHistorioCompras(DataTable DtTotal, DataTable DtCabecera, DataTable DtDetalle)
         {
-
             DataTable dtTransactionDocument = new DataTable();
-
             List<RetailTransaction> ListretailTransaction = new List<RetailTransaction>();
             foreach (DataRow drCab in DtCabecera.Rows)
             {
                 RetailTransaction retailTransaction;
-
                 retailTransaction = new RetailTransaction()
                 {
                     transactionUser = drCab["ve_nombre"].ToString(),
@@ -69,13 +60,32 @@ namespace Infraestructure.Compras
                     transactionDocuments = GetTransactionDocument(drCab["Tipo_Doc"].ToString(), drCab["Factura_full"].ToString(), drCab["Fecha_Doc"].ToString()),
                     keyedOfflineFlag = drCab["keyedOfflineFlag"].ToString(),
                     documentNumber = drCab["cl_cedruc"].ToString(),
-                    lineItem = GetLineItem(DtDetalle, Convert.ToInt32(drCab["EM_CODIGO"].ToString()), Convert.ToInt32(drCab["FT_IDFACT"].ToString()), Convert.ToInt32(drCab["TF_TIPFAC"].ToString()))
-
-
+                    lineItem = GetLineItem(DtDetalle, Convert.ToInt32(drCab["EM_CODIGO"].ToString()), Convert.ToInt32(drCab["FT_IDFACT"].ToString()), Convert.ToInt32(drCab["TF_TIPFAC"].ToString())),
+                    fiscalFlag = "0",
+                    transactionDocumentNumber = drCab["Factura_full"].ToString(),
+                    location = new Location()
+                    {
+                        locationName = drCab["EM_NOMBRE"].ToString(),
+                        locationId = drCab["em_abrev"].ToString(),
+                        locationType = drCab["Tipo_Tienda"].ToString(),
+                        locationAttributes = new LocationAttributes()
+                        {
+                            chainName = drCab["ca_nombre"].ToString(),
+                            chainId = drCab["chainId"].ToString(),
+                        }
+                    },
+                    currencyISOCode = drCab["currencyISOCode"].ToString(),
+                    channelId = drCab["channelId"].ToString(),
+                    customer = new Customer()
+                    {
+                        customerIdDocumentNumber = drCab["cl_cedruc"].ToString(),
+                        quantityInvoice = Convert.ToInt32(DtTotal.Rows[0]["CANT_TOTFAC"]),
+                        quantityCreditInvoice = Convert.ToInt32(DtTotal.Rows[0]["CANT_ACREDITO"]),
+                        quantityDueInvoice = Convert.ToInt32(DtTotal.Rows[0]["CANT_VENCIDAS"]),
+                    }
                 };
                 ListretailTransaction.Add(retailTransaction);
             }
-
             return (ListretailTransaction);
         }
 
@@ -90,10 +100,8 @@ namespace Infraestructure.Compras
             return transactionDocuments;
         }
 
-        private List<LineItem> GetLineItem(DataTable DtDetalle, int emisor, int factura, int ptovta)
+        private List<Object> GetLineItem(DataTable DtDetalle, int emisor, int factura, int ptovta)
         {
-
-
             // selecciono la factura con que voy a trabajar 
             DataTable dt;
             dt =   DtDetalle.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta}").CopyToDataTable();
@@ -103,41 +111,47 @@ namespace Infraestructure.Compras
             string[] sColumnasDistinct = { "EM_CODIGO", "FT_IDFACT", "TF_TIPFAC", "COD_ARTICULO" , "lineItemType" };
             dtDisitnct = dt.DefaultView.ToTable(true, sColumnasDistinct);
 
-            
-
-            List<LineItem> listlineItem = new List<LineItem>();
-            LineItem lineItem;
+            List<Object> listlineItem = new List<Object>();
+            SaleReturnProdPadre lineItemProd;
+            SaleReturnGexPadre lineItemGex;
 
             foreach (DataRow dr in dtDisitnct.Rows)
             {
-                lineItem = new LineItem()
+                lineItemProd = new SaleReturnProdPadre()
                 {
-                    saleReturn = GetSaleReturn(dt, emisor, factura, ptovta, dr["COD_ARTICULO"].ToString()),
-                    lineItemType = dr["lineItemType"].ToString()
+                    saleReturn = GetSaleReturnProd(dt, emisor, factura, ptovta, dr["COD_ARTICULO"].ToString()),
+                    lineItemType ="",    
                 };
 
-                listlineItem.Add(lineItem);
-            }
 
+
+               lineItemGex = new SaleReturnGexPadre()
+                {
+                   saleReturn = GetSaleReturnGex(dt, emisor, factura, ptovta, dr["COD_ARTICULO"].ToString()),
+                   lineItemType = "",
+               };
+               
+                listlineItem.Add(lineItemProd);
+                listlineItem.Add(lineItemGex);
+            }                
             return (listlineItem);
         }
 
-        private SaleReturn GetSaleReturn(DataTable dt, int emisor, int factura, int ptovta, string idItem )
-        {
-                        
+        private SaleReturnProd GetSaleReturnProd(DataTable dt, int emisor, int factura, int ptovta, string idItem )
+        {                        
             DataRow[] drProcuto = null;
             drProcuto = dt.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta} and COD_ARTICULO='{idItem}' and tipo_producto='Producto'");
 
             DataRow[] drGex = null;
             drGex = dt.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta} and COD_ARTICULO='{idItem}' and tipo_producto='Garantia'");
 
-            SaleReturn saleReturn = new SaleReturn();
+            SaleReturnProd saleReturn = new SaleReturnProd();
 
             if (drProcuto.Count() > 0)
-            {
+            {               
                 saleReturn.regularUnitPrice = drProcuto[0]["precio_base"].ToString();
                 saleReturn.netPrice = Convert.ToDouble(drProcuto[0] ["val_facturado"].ToString());
-                saleReturn.item = new Item()
+                saleReturn.item = new ItemProd()
                 {
                     itemId = idItem,
                     brandName = drProcuto[0]["brandName"].ToString(),
@@ -158,65 +172,50 @@ namespace Infraestructure.Compras
                 };
                 saleReturn.quantity = Convert.ToInt32(drProcuto[0]["ft_cant"]);
                 saleReturn.extendedDiscount = Convert.ToInt32(drProcuto[0]["extendedDiscount"].ToString());
-                saleReturn.typeCode = drProcuto[0]["tipo_producto"].ToString();                
-            }
-
-
-           /* if (drGex.Count() > 0)
-            {
-                saleReturn.warrantyDuration = drGex[0]["precio_base"].ToString();
-                saleReturn.warrantyMonthsDuration = Convert.ToDouble(drProcuto[0]["val_facturado"].ToString());
-            }
-           */
-
-
+                saleReturn.typeCode = drProcuto[0]["tipo_producto"].ToString();  
+                
+            }           
             return (saleReturn);
         }
+
+        private SaleReturnGex GetSaleReturnGex(DataTable dt, int emisor, int factura, int ptovta, string idItem)
+        {
+
+           // DataRow[] drProcuto = null;
+           // drProcuto = dt.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta} and COD_ARTICULO='{idItem}' and tipo_producto='Producto'");
+
+            DataRow[] drGex = null;
+            drGex = dt.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta} and COD_ARTICULO='{idItem}' and tipo_producto='Garantia'");
+
+            SaleReturnGex saleReturn = new SaleReturnGex();
+
+            if (drGex.Count() > 0)
+            {
+                saleReturn.warrantyDuration = drGex[0]["PlazoDesc_GEX"].ToString();
+                saleReturn.warrantyMonthsDuration = drGex[0]["Plazo_Gex"].ToString();
+               // saleReturn.warrantyContractId = drGex[0]["Tiene_Garantia"].ToString(); ///// NO SE ENCUANTRA
+                saleReturn.warrantyDocumentNumber = drGex[0]["warrantyDocumentNumber"].ToString();
+                saleReturn.warrantyPurchaseDate = drGex[0]["warrantyPurchaseDate"].ToString();
+                saleReturn.quantity = Convert.ToInt32(drGex[0]["ft_cant"]);
+                saleReturn.extendedDiscount = drGex[0]["extendedDiscount"].ToString();
+                saleReturn.regularUnitPrice = drGex[0]["precio_base"].ToString();
+                saleReturn.netPrice =  drGex[0]["val_facturado"].ToString();
+                // saleReturn.typeCode = drGex[0]["Tiene_Garantia"].ToString(); //// ///// NO SE ENCUANTRA
+
+                saleReturn.item = new ItemGex()
+                {
+                    itemId = idItem,
+                    brandName = drGex[0]["brandName"].ToString(),
+                    upc = drGex[0]["upc"].ToString(),
+                    id = drGex[0]["id"].ToString(),
+                    itemDescription = drGex[0]["it_desite"].ToString(),
+                    relatedItem = new RelatedItem()
+                    {
+                        upc = drGex[0]["upc"].ToString()
+                    }
+                };
+            }
+            return (saleReturn);
+        }       
     }
 }
-
-//tallerTipo.IdTipo = Convert.ToInt32(rowDeta["IdTipo"].ToString());
-//tallerTipo.Descripcion = rowDeta["Descripciontipo"].ToString();
-
-
-//saleReturn.regularUnitPrice = (string)Convert.ToDecimal((drProcuto["precio_base"].ToString));
-
-/*
-public class LineItem
-{
-    public SaleReturn saleReturn { get; set; }
-    public string lineItemType { get; set; }
-}
-
-
-
-public class SaleReturn
-{
-    public int? regularUnitPrice { get; set; }
-    public int netPrice { get; set; }
-    public Item item { get; set; }
-    public int? quantity { get; set; }
-    public int? extendedDiscount { get; set; }
-    public string typeCode { get; set; }
-    public object warrantyDuration { get; set; }
-    public object warrantyMonthsDuration { get; set; }
-    public object warrantyContractId { get; set; }
-    public string warrantyDocumentNumber { get; set; }
-    public string warrantyPurchaseDate { get; set; }
-}
-
-
-
-public class RetailTransaction2
-{
-   
-
-    
-    public List<LineItem> lineItem { get; set; }
-    public int fiscalFlag { get; set; }
-    public int transactionDocumentNumber { get; set; }
-    public Location location { get; set; }
-    public string currencyISOCode { get; set; }
-    public object channelId { get; set; }
-    public Customer customer { get; set; }
-*/

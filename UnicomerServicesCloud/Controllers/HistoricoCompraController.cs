@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces;
+using Core.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UnicomerServicesCloud.Controllers
@@ -26,11 +27,17 @@ namespace UnicomerServicesCloud.Controllers
         }
 
         [Route("storeops/retail-transactions"), HttpGet]
-        public ActionResult Storeops()        {
+        public ActionResult Storeops(string id_number)       
+        {
 
-            var response = _HistoricoCompras.Get();
+            //string idnumber = Request.QueryString("id_number");
 
-            return Ok(response);
+            var response = _HistoricoCompras.Get(id_number);
+            RetailTransactionResponse retailTransaction = new RetailTransactionResponse()
+            {
+                retailTransaction = response,
+            };
+            return Ok(retailTransaction);
         }
     }
 }

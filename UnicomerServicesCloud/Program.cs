@@ -1,13 +1,11 @@
 using Core.Interfaces;
 using Core.Response;
+using Infraestructure;
 using Infraestructure.Compras;
 using System.Configuration;
 
 
-/*IConfiguration configuration = new ConfigurationBuilder()
-                            .AddJsonFile("appsettings.json")
-                            .Build();
-*/
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +19,10 @@ builder.Services.AddSwaggerGen();
 //Injeccion de dependencias
 builder.Services.AddTransient<IHistoricoCompras, HistoricoCompras>();
 
-
+// para menejar las exepciones globales
+builder.Services.AddControllers(options => {
+    options.Filters.Add<GlobalException>();
+});
 
 
 

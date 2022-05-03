@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Core.Interfaces
 {
     public interface IHistoricoCompras
-    {
-        IEnumerable<RetailTransaction> Get();
+    {       
+        List<RetailTransaction> Get(string id_number);
     }
 }

@@ -28,7 +28,7 @@ namespace Core.Response
         public string upc { get; set; }
     }
 
-    public class Item
+    public class ItemProd
     {
         public string itemId { get; set; }
         public string brandName { get; set; }
@@ -40,29 +40,65 @@ namespace Core.Response
         public string id { get; set; }
         public string itemDescription { get; set; }
         public string modelName { get; set; }
+
+    }
+
+    public class ItemGex
+    {
+        public string itemId { get; set; }
+        public string brandName { get; set; }
+        public string upc { get; set; }
+        public string id { get; set; }
+        public string itemDescription { get; set; }
         public RelatedItem relatedItem { get; set; }
     }
 
-    public class SaleReturn
+    public class SaleReturnProd
     {
         public string regularUnitPrice { get; set; }
         public double netPrice { get; set; }
-        public Item item { get; set; }
+        public ItemProd item { get; set; }
         public int quantity { get; set; }
         public int extendedDiscount { get; set; }
         public string typeCode { get; set; }
+    }
+
+    public class SaleReturnProdPadre
+    {
+        public SaleReturnProd saleReturn { get; set; }
+        public string lineItemType { get; set; }
+
+    }
+
+    public class SaleReturnGexPadre
+    {
+        public SaleReturnGex saleReturn { get; set; }
+        public string lineItemType { get; set; }
+
+    }
+
+    public class SaleReturnGex
+    {
+
         public object warrantyDuration { get; set; }
         public object warrantyMonthsDuration { get; set; }
+        public ItemGex item { get; set; }
         public object warrantyContractId { get; set; }
         public string warrantyDocumentNumber { get; set; }
         public string warrantyPurchaseDate { get; set; }
+        public int quantity { get; set; }
+        public string extendedDiscount { get; set; }
+        public string regularUnitPrice { get; set; }
+        public string netPrice { get; set; }
+        public string typeCode { get; set; }
     }
 
-    public class LineItem
-    {
-        public SaleReturn saleReturn { get; set; }
-        public string lineItemType { get; set; }
-    }
+
+    /* public class LineItem
+     {
+         //public SaleReturn saleReturn { get; set; }
+         public string lineItemType { get; set; }
+     }*/
 
     public class LocationAttributes
     {
@@ -73,7 +109,7 @@ namespace Core.Response
     public class Location
     {
         public string locationName { get; set; }
-        public int locationId { get; set; }
+        public string locationId { get; set; }
         public string locationType { get; set; }
         public LocationAttributes locationAttributes { get; set; }
     }
@@ -99,12 +135,17 @@ namespace Core.Response
         public List<TransactionDocument> transactionDocuments { get; set; }
         public string keyedOfflineFlag { get; set; }
         public string documentNumber { get; set; }
-        public List<LineItem> lineItem { get; set; }
-        public int fiscalFlag { get; set; }
-        public int transactionDocumentNumber { get; set; }
+        public List<Object> lineItem { get; set; }
+        public string fiscalFlag { get; set; }
+        public string transactionDocumentNumber { get; set; }
         public Location location { get; set; }
         public string currencyISOCode { get; set; }
         public object channelId { get; set; }
         public Customer customer { get; set; }
-    }    
+    }
+
+    public class RetailTransactionResponse
+    {
+        public List<RetailTransaction> retailTransaction { get; set; }
+    }
 }
