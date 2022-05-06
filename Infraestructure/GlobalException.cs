@@ -13,16 +13,14 @@ namespace Infraestructure
         public void OnException (ExceptionContext context)
         {
 
-            List<err> errors = new List<err>();
+            List<ResponseError> errors = new List<ResponseError>();
 
             //para controlar excepciones de base de datos 
             if (context.Exception.GetType() == typeof(OdbcException))  
             {
 
                 var exception = (OdbcException)context.Exception;
-
-               
-                err Error = new err()
+                ResponseError Error = new ResponseError()
                 {
                     code = "0500",
                     id = exception.ErrorCode.ToString(),
@@ -44,7 +42,6 @@ namespace Infraestructure
                     generalResponse = validation,
                 };
 
-
                 context.Result = new ObjectResult(response)
                 {
                     StatusCode = (int)HttpStatusCode.InternalServerError
@@ -55,9 +52,7 @@ namespace Infraestructure
             else
             {
                 var exception = (System.Exception)context.Exception;
-
-                
-                err Error = new err()
+                ResponseError Error = new ResponseError()
                 {
                     code = "0500",
                     id = exception.GetType().Name,
@@ -65,8 +60,6 @@ namespace Infraestructure
                     title = "Internal Server Error"
                 };
                 errors.Add(Error);
-
-
                 var validation = new
                 {
 
@@ -75,12 +68,10 @@ namespace Infraestructure
                     responseCode = "0500"                   
                 };
 
-
                 GeneralResponse response = new()
                 {
                     generalResponse = validation,
                 };
-
 
                 context.Result = new ObjectResult(response)
                 {
@@ -89,20 +80,8 @@ namespace Infraestructure
             }
         }
 
-        private class err
-        {
-            public string code { get; set; }
-            public string id { get; set; }
-            public string detail { get; set; }
-            public string title  { get; set; }
+       
 
-        }
-
-        private class GeneralResponse
-        {
-            public object generalResponse { get; set; }
-            
-
-        }
+       
     }   
 }

@@ -19,9 +19,15 @@ builder.Services.AddSwaggerGen();
 //Injeccion de dependencias
 builder.Services.AddTransient<IHistoricoCompras, HistoricoCompras>();
 
+
+
+builder.Services.AddScoped<ValidationFilterCompras>();
+
 // para menejar las exepciones globales
 builder.Services.AddControllers(options => {
     options.Filters.Add<GlobalException>();
+    options.Filters.Add<ValidationFilterCompras>();
+
 });
 
 

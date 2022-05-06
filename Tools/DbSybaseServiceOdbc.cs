@@ -39,7 +39,6 @@ namespace DbSybaseService
         {
             try
             {
-
                 connection.ConnectionString = this.ConnectionString;
                 connection.Open();
             }

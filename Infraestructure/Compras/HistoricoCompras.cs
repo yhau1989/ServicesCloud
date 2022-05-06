@@ -201,14 +201,14 @@ namespace Infraestructure.Compras
             {
                 saleReturn.warrantyDuration = drGex[0]["PlazoDesc_GEX"].ToString();
                 saleReturn.warrantyMonthsDuration = drGex[0]["Plazo_Gex"].ToString();
-               // saleReturn.warrantyContractId = drGex[0]["Tiene_Garantia"].ToString(); ///// NO SE ENCUANTRA
+                saleReturn.warrantyContractId = drGex[0]["tipo_garantia"].ToString(); 
                 saleReturn.warrantyDocumentNumber = drGex[0]["warrantyDocumentNumber"].ToString();
                 saleReturn.warrantyPurchaseDate = drGex[0]["warrantyPurchaseDate"].ToString();
                 saleReturn.quantity = Convert.ToInt32(drGex[0]["ft_cant"]);
                 saleReturn.extendedDiscount = drGex[0]["extendedDiscount"].ToString();
                 saleReturn.regularUnitPrice = drGex[0]["precio_base"].ToString();
                 saleReturn.netPrice =  drGex[0]["val_facturado"].ToString();
-                // saleReturn.typeCode = drGex[0]["Tiene_Garantia"].ToString(); //// ///// NO SE ENCUANTRA
+                saleReturn.typeCode = drGex[0]["tipo_garantia"].ToString(); 
 
                 saleReturn.item = new ItemGex()
                 {
