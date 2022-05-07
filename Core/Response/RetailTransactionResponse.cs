@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Core.Response
+﻿namespace Core.Response
 {
     public class TransactionDocument
     {
@@ -94,12 +88,6 @@ namespace Core.Response
     }
 
 
-    /* public class LineItem
-     {
-         //public SaleReturn saleReturn { get; set; }
-         public string lineItemType { get; set; }
-     }*/
-
     public class LocationAttributes
     {
         public string chainName { get; set; }
@@ -122,7 +110,7 @@ namespace Core.Response
         public int quantityDueInvoice { get; set; }
     }
 
-    public class RetailTransaction
+    public class RetailTransactionResponse
     {
         public string transactionUser { get; set; }
         public string transactionDateTime { get; set; }
@@ -144,8 +132,8 @@ namespace Core.Response
         public Customer customer { get; set; }
     }
 
-    public class RetailTransactionResponse
+    public class RootRetailTransaction
     {
-        public List<RetailTransaction> retailTransaction { get; set; }
+        public List<RetailTransactionResponse> retailTransaction { get; set; }
     }
 }

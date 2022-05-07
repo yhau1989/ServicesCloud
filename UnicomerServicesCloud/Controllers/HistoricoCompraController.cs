@@ -1,6 +1,6 @@
 ﻿using Core.Interfaces;
 using Core.Response;
-using Infraestructure.Compras;
+using Infraestructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UnicomerServicesCloud.Controllers
@@ -28,11 +28,11 @@ namespace UnicomerServicesCloud.Controllers
         }
 
         [Route("storeops/retail-transactions"), HttpGet]
-        [ServiceFilter(typeof(ValidationFilterCompras))]
+        [ServiceFilter(typeof(ValidationFilter))]
         public ActionResult Storeops(string id_number, string countryISOCode)       
         {
             var response = _HistoricoCompras.Get(id_number);
-            RetailTransactionResponse retailTransaction = new RetailTransactionResponse()
+            RootRetailTransaction retailTransaction = new RootRetailTransaction()
             {
                 retailTransaction = response,
             };

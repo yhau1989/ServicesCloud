@@ -1,8 +1,7 @@
 using Core.Interfaces;
-using Core.Response;
 using Infraestructure;
 using Infraestructure.Compras;
-using System.Configuration;
+using Infraestructure.PostSalesServices;
 
 
 
@@ -18,15 +17,16 @@ builder.Services.AddSwaggerGen();
 
 //Injeccion de dependencias
 builder.Services.AddTransient<IHistoricoCompras, HistoricoCompras>();
+builder.Services.AddTransient<IPostSalesServices, PostSalesServices>();
 
 
 
-builder.Services.AddScoped<ValidationFilterCompras>();
+builder.Services.AddScoped<ValidationFilter>();
 
 // para menejar las exepciones globales
 builder.Services.AddControllers(options => {
     options.Filters.Add<GlobalException>();
-    options.Filters.Add<ValidationFilterCompras>();
+    options.Filters.Add<ValidationFilter>();
 
 });
 

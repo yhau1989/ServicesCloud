@@ -18,7 +18,7 @@ namespace Infraestructure.Compras
         }
       
 
-        public List<RetailTransaction> Get(string id_number)
+        public List<RetailTransactionResponse> Get(string id_number)
         {
             DataTable DtTotal = new DataTable();
             DataTable DtCabecera = new DataTable();
@@ -35,19 +35,19 @@ namespace Infraestructure.Compras
             if (odbcReader.IsClosed == false)
                 DtDetalle.Load(odbcReader);
             dbSybaseServiceOdbc.Dispose();
-            List<RetailTransaction> ListHitoricoComprasCliente;
+            List<RetailTransactionResponse> ListHitoricoComprasCliente;
             ListHitoricoComprasCliente = FillHistorioCompras(DtTotal, DtCabecera, DtDetalle);
             return (ListHitoricoComprasCliente);
         }
 
-        private List<RetailTransaction> FillHistorioCompras(DataTable DtTotal, DataTable DtCabecera, DataTable DtDetalle)
+        private List<RetailTransactionResponse> FillHistorioCompras(DataTable DtTotal, DataTable DtCabecera, DataTable DtDetalle)
         {
             DataTable dtTransactionDocument = new DataTable();
-            List<RetailTransaction> ListretailTransaction = new List<RetailTransaction>();
+            List<RetailTransactionResponse> ListretailTransaction = new List<RetailTransactionResponse>();
             foreach (DataRow drCab in DtCabecera.Rows)
             {
-                RetailTransaction retailTransaction;
-                retailTransaction = new RetailTransaction()
+                RetailTransactionResponse retailTransaction;
+                retailTransaction = new RetailTransactionResponse()
                 {
                     transactionUser = drCab["ve_nombre"].ToString(),
                     transactionDateTime = drCab["ft_fecfac"].ToString(),
@@ -124,7 +124,6 @@ namespace Infraestructure.Compras
                     saleReturn = GetSaleReturnProd(dt, emisor, factura, ptovta, dr["COD_ARTICULO"].ToString()),
                     lineItemType ="",    
                 };
-
 
                 existeGex = false;
                 lineItemGex = new SaleReturnGexPadre()
@@ -222,7 +221,6 @@ namespace Infraestructure.Compras
                         upc = drGex[0]["upc"].ToString()
                     }
                 };
-
                 existeGex = true;
             }
             return (saleReturn);

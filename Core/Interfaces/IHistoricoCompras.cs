@@ -9,6 +9,6 @@ namespace Core.Interfaces
 {
     public interface IHistoricoCompras
     {       
-        List<RetailTransaction> Get(string id_number);
+        List<RetailTransactionResponse> Get(string id_number);
     }
 }
