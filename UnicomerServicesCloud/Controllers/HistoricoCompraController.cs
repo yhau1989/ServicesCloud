@@ -28,7 +28,7 @@ namespace UnicomerServicesCloud.Controllers
         }
 
         [Route("storeops/retail-transactions"), HttpGet]
-        [ServiceFilter(typeof(ValidationFilter))]
+       // [ServiceFilter(typeof(ValidationFilter))]
         public ActionResult Storeops(string id_number, string countryISOCode)       
         {
             var response = _HistoricoCompras.Get(id_number);

@@ -50,6 +50,7 @@ namespace Infraestructure.PostSalesServices
 
             foreach (DataRow drCab in DtCabecera.Rows)
             {
+               
                 postSalesServicesResponse = new PostSalesServicesResponse()
                 {
                     serviceOrderId = Convert.ToInt32(drCab["num_os"]),
@@ -116,17 +117,17 @@ namespace Infraestructure.PostSalesServices
                         discount = Convert.ToDecimal(drCab["discount"].ToString()),
                         netTotal = Convert.ToDecimal(drCab["netTotal"].ToString()),
                         tax = Convert.ToDecimal(drCab["tax"].ToString()),
-                      //  total = (drCab["total"] == null || drCab["total"] =="")  ? 0 : Convert.ToDecimal(drCab["total"].ToString()), 
+                        total = (drCab["total"] != null &&  drCab["total"].ToString().Length > 0) ? Convert.ToDecimal(drCab["total"].ToString()) : 0, 
                         downPayment = Convert.ToDecimal(drCab["downPayment"].ToString()),
                         pendingPayment = Convert.ToDecimal(drCab["pendingPayment"].ToString()),
-                      //  invoiceNumber = Convert.ToDecimal(drCab["FACTURA_FULL_PROV"].ToString()), NULO
+                        invoiceNumber = (drCab["FACTURA_FULL_PROV"] != null && drCab["FACTURA_FULL_PROV"].ToString().Length > 0) ? Convert.ToDecimal(drCab["FACTURA_FULL_PROV"].ToString()) : 0,
                         downPaymentNumber = Convert.ToDecimal(drCab["downPaymentNumber"].ToString()),
                         CustomerInvoiceNumber = drCab["Factura_Full_cli"].ToString(),
                         VendorTaxId = Convert.ToDecimal(drCab["IdProv"].ToString()),
                         VendorName = drCab["NomProv"].ToString(),
                         VendorInvoiceData = drCab["FchProv"].ToString(),
                     }
-                };
+                };           
                 ListPostSalesServicesResponse.Add(postSalesServicesResponse);
             }
             return ListPostSalesServicesResponse;
