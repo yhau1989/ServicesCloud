@@ -4512,23 +4512,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\segun\\.nuget\\packages\\": {},
+    "C:\\Users\\Samuel\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Wokspace\\AutoRespaldo\\Proyectos\\SP\\ServicesCloud\\UnicomerServicesCloud\\UnicomerServicesCloud.csproj",
+      "projectUniqueName": "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\UnicomerServicesCloud\\UnicomerServicesCloud.csproj",
       "projectName": "UnicomerServicesCloud",
-      "projectPath": "C:\\Wokspace\\AutoRespaldo\\Proyectos\\SP\\ServicesCloud\\UnicomerServicesCloud\\UnicomerServicesCloud.csproj",
-      "packagesPath": "C:\\Users\\segun\\.nuget\\packages\\",
-      "outputPath": "C:\\Wokspace\\AutoRespaldo\\Proyectos\\SP\\ServicesCloud\\UnicomerServicesCloud\\obj\\",
+      "projectPath": "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\UnicomerServicesCloud\\UnicomerServicesCloud.csproj",
+      "packagesPath": "C:\\Users\\Samuel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\UnicomerServicesCloud\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\segun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Samuel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4543,11 +4543,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Wokspace\\AutoRespaldo\\Proyectos\\SP\\ServicesCloud\\Core\\Core.csproj": {
-              "projectPath": "C:\\Wokspace\\AutoRespaldo\\Proyectos\\SP\\ServicesCloud\\Core\\Core.csproj"
+            "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\Core\\Core.csproj": {
+              "projectPath": "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\Core\\Core.csproj"
             },
-            "C:\\Wokspace\\AutoRespaldo\\Proyectos\\SP\\ServicesCloud\\Infraestructure\\Infraestructure.csproj": {
-              "projectPath": "C:\\Wokspace\\AutoRespaldo\\Proyectos\\SP\\ServicesCloud\\Infraestructure\\Infraestructure.csproj"
+            "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\Infraestructure\\Infraestructure.csproj": {
+              "projectPath": "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\Infraestructure\\Infraestructure.csproj"
             }
           }
         }
@@ -4635,7 +4635,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.105\\RuntimeIdentifierGraph.json"
       }
     }
   }

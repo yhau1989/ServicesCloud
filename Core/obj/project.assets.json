@@ -8,23 +8,23 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\segun\\.nuget\\packages\\": {},
+    "C:\\Users\\Samuel\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Wokspace\\AutoRespaldo\\Proyectos\\SP\\ServicesCloud\\Core\\Core.csproj",
+      "projectUniqueName": "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\Core\\Core.csproj",
       "projectName": "Core",
-      "projectPath": "C:\\Wokspace\\AutoRespaldo\\Proyectos\\SP\\ServicesCloud\\Core\\Core.csproj",
-      "packagesPath": "C:\\Users\\segun\\.nuget\\packages\\",
-      "outputPath": "C:\\Wokspace\\AutoRespaldo\\Proyectos\\SP\\ServicesCloud\\Core\\obj\\",
+      "projectPath": "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\Core\\Core.csproj",
+      "packagesPath": "C:\\Users\\Samuel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Samuel\\GitHub\\ServicesCloud\\Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\segun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Samuel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -65,7 +65,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.105\\RuntimeIdentifierGraph.json"
       }
     }
   }

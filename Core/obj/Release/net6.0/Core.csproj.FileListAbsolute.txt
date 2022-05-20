@@ -1,0 +1,12 @@
+C:\Users\Samuel\GitHub\ServicesCloud\Core\bin\Release\net6.0\Core.deps.json
+C:\Users\Samuel\GitHub\ServicesCloud\Core\bin\Release\net6.0\Core.dll
+C:\Users\Samuel\GitHub\ServicesCloud\Core\bin\Release\net6.0\ref\Core.dll
+C:\Users\Samuel\GitHub\ServicesCloud\Core\bin\Release\net6.0\Core.pdb
+C:\Users\Samuel\GitHub\ServicesCloud\Core\obj\Release\net6.0\Core.csproj.AssemblyReference.cache
+C:\Users\Samuel\GitHub\ServicesCloud\Core\obj\Release\net6.0\Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Samuel\GitHub\ServicesCloud\Core\obj\Release\net6.0\Core.AssemblyInfoInputs.cache
+C:\Users\Samuel\GitHub\ServicesCloud\Core\obj\Release\net6.0\Core.AssemblyInfo.cs
+C:\Users\Samuel\GitHub\ServicesCloud\Core\obj\Release\net6.0\Core.csproj.CoreCompileInputs.cache
+C:\Users\Samuel\GitHub\ServicesCloud\Core\obj\Release\net6.0\Core.dll
+C:\Users\Samuel\GitHub\ServicesCloud\Core\obj\Release\net6.0\ref\Core.dll
+C:\Users\Samuel\GitHub\ServicesCloud\Core\obj\Release\net6.0\Core.pdb
