@@ -117,8 +117,8 @@ namespace Core.Response
         public AddressDetail addressDetail { get; set; }
         public PhoneDetail phoneDetail { get; set; }
         public ProductDetail productDetail { get; set; }
-        public ChangeRegistry changeRegistry { get; set; }
-        public EventRegistry eventRegistry { get; set; }
+        public List<ChangeRegistry> changeRegistry { get; set; }
+        public List<EventRegistry> eventRegistry { get; set; }
         public ServiceCost serviceCost { get; set; }
     }
 

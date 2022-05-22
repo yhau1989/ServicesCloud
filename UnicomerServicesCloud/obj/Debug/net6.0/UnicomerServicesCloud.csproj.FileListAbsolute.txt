@@ -206,3 +206,4 @@ C:\Users\Samuel\GitHub\ServicesCloud\UnicomerServicesCloud\bin\Debug\net6.0\Tool
 C:\Users\Samuel\GitHub\ServicesCloud\UnicomerServicesCloud\bin\Debug\net6.0\Core.pdb
 C:\Users\Samuel\GitHub\ServicesCloud\UnicomerServicesCloud\bin\Debug\net6.0\Infraestructure.pdb
 C:\Users\Samuel\GitHub\ServicesCloud\UnicomerServicesCloud\bin\Debug\net6.0\Tools.pdb
+C:\Users\Samuel\GitHub\ServicesCloud\UnicomerServicesCloud\bin\Debug\net6.0\nlog.config

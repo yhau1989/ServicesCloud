@@ -20,7 +20,12 @@
       "ProjectGuid": "88a40761-610d-4e4d-a7d9-636631259e00",
       "DisplayName": "Infraestructure",
       "ColorIndex": 2
+    },
+    "2fd68da8-3042-42d1-ba68-00889b8c69ce": {
+      "ProjectGuid": "2fd68da8-3042-42d1-ba68-00889b8c69ce",
+      "DisplayName": "Core",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 4
 }

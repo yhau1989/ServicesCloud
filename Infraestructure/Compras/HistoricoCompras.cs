@@ -4,6 +4,8 @@ using DbSybaseService;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Data.Odbc;
+using System.Text;
+using Tools;
 
 namespace Infraestructure.Compras
 {
@@ -23,7 +25,15 @@ namespace Infraestructure.Compras
             DataTable DtTotal = new DataTable();
             DataTable DtCabecera = new DataTable();
             DataTable DtDetalle = new DataTable();
-            dbSybaseServiceOdbc = new DbSybaseServiceOdbc(_configuration["AppSettings:ConnectionStringASA17"]);
+
+            //desencriptando cadena
+            string cConexion = _configuration["AppSettings:ConnectionStringASA17"];
+            byte[] toBytes = Encoding.UTF8.GetBytes(cConexion);
+            byte[] ketToBytes = Encoding.UTF8.GetBytes("xxxTokenxxx");
+            cConexion = testMD5.decrypt(cConexion);
+            //desencriptando cadena
+
+            dbSybaseServiceOdbc = new DbSybaseServiceOdbc(cConexion);
             dbSybaseServiceOdbc.Initialize();
             OdbcCommand odbcCommand = new OdbcCommand("EXEC dba.SP_SCloud_Facturas ?", dbSybaseServiceOdbc.connection);
             odbcCommand.CommandType = CommandType.StoredProcedure;

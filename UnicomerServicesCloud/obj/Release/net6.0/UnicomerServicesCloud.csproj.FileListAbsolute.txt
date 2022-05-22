@@ -102,3 +102,4 @@ C:\Users\Samuel\GitHub\ServicesCloud\UnicomerServicesCloud\obj\Release\net6.0\Un
 C:\Users\Samuel\GitHub\ServicesCloud\UnicomerServicesCloud\obj\Release\net6.0\ref\UnicomerServicesCloud.dll
 C:\Users\Samuel\GitHub\ServicesCloud\UnicomerServicesCloud\obj\Release\net6.0\UnicomerServicesCloud.pdb
 C:\Users\Samuel\GitHub\ServicesCloud\UnicomerServicesCloud\obj\Release\net6.0\UnicomerServicesCloud.genruntimeconfig.cache
+C:\Users\Samuel\GitHub\ServicesCloud\UnicomerServicesCloud\bin\Release\net6.0\nlog.config

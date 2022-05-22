@@ -4,6 +4,8 @@ using DbSybaseService;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Data.Odbc;
+using System.Text;
+using Tools;
 
 namespace Infraestructure.PostSalesServices
 {
@@ -25,7 +27,14 @@ namespace Infraestructure.PostSalesServices
             DataTable DtCambio = new DataTable();
             DataTable DtDetalleSeguimiento = new DataTable();
 
-            dbSybaseServiceOdbc = new DbSybaseServiceOdbc(_configuration["AppSettings:ConnectionStringASA9"]);
+            //desencriptando cadena
+            string cConexion = _configuration["AppSettings:ConnectionStringASA9"];
+            byte[] toBytes = Encoding.UTF8.GetBytes(cConexion);
+            byte[] ketToBytes = Encoding.UTF8.GetBytes("xxxTokenxxx");
+            cConexion = testMD5.decrypt(cConexion);
+            //desencriptando cadena
+
+            dbSybaseServiceOdbc = new DbSybaseServiceOdbc(cConexion);
             dbSybaseServiceOdbc.Initialize();
             OdbcCommand odbcCommand = new OdbcCommand("EXEC dba.SP_SCloud_Servifacil ?", dbSybaseServiceOdbc.connection);
             odbcCommand.CommandType = CommandType.StoredProcedure;
@@ -133,45 +142,43 @@ namespace Infraestructure.PostSalesServices
             return ListPostSalesServicesResponse;
         }
 
-        private ChangeRegistry GetChangeRegistry(DataTable DtCambio, int os, int emisor)
+        private List<ChangeRegistry> GetChangeRegistry(DataTable DtCambio, int os, int emisor)
         {                        
-           
-            DataRow[] dr = null;
-            dr = DtCambio.Select($"num_os={os} and cod_emisor_fac={emisor}");
-            ChangeRegistry changeRegistry = new ChangeRegistry();
+            DataRow[] dr = DtCambio.Select($"num_os={os} and cod_emisor_fac={emisor}");
+            List<ChangeRegistry> changeRegistryList = new List<ChangeRegistry>();
 
             if (dr.Count() > 0)
             {
-                changeRegistry.reason = dr[0]["motivo_cam"].ToString();
-                changeRegistry.number = dr[0]["numero_cam"].ToString();
-                changeRegistry.authorizationDate = dr[0]["fecha_cam"].ToString();
-                changeRegistry.authorizationUser = dr[0]["Usuario_cam"].ToString();
-               
-             } else
-            {
-                changeRegistry = null;
-            };            
-            return (changeRegistry);
+                foreach (DataRow drItem in dr) {
+                    changeRegistryList.Add(new ChangeRegistry() {
+                        reason = drItem["motivo_cam"].ToString(),
+                        number = drItem["numero_cam"].ToString(),
+                        authorizationDate = drItem["fecha_cam"].ToString(),
+                        authorizationUser = drItem["Usuario_cam"].ToString()
+                    });
+                }
+             }
+            
+            return (changeRegistryList);
         }
-        private EventRegistry GetEventRegistry(DataTable DtDetalleSeguimiento, int os, int emisor)
+        private List<EventRegistry> GetEventRegistry(DataTable DtDetalleSeguimiento, int os, int emisor)
         {
-            DataRow[] dr = null;
-            dr = DtDetalleSeguimiento.Select($"num_os={os} and cod_emisor_fac={emisor}");
-            EventRegistry eventRegistry = new EventRegistry();
+            DataRow[] dr = DtDetalleSeguimiento.Select($"num_os={os} and cod_emisor_fac={emisor}");
+            List<EventRegistry> eventRegistryList = new List<EventRegistry>();
 
             if (dr.Count() > 0)
             {
-                eventRegistry.number = dr[0]["numero_seg"].ToString();
-                eventRegistry.description = dr[0]["observa_seg"].ToString();
-                eventRegistry.technicianName = dr[0]["Usuario_Seg"].ToString();
-                eventRegistry.creationDate = dr[0]["fecha_seg"].ToString();
-                eventRegistry.reason = dr[0]["motivo_seg"].ToString();
+                foreach (DataRow drItem in dr) {
+                    eventRegistryList.Add(new EventRegistry() {
+                        number = drItem["numero_seg"].ToString(),
+                        description = drItem["observa_seg"].ToString(),
+                        technicianName = drItem["Usuario_Seg"].ToString(),
+                        creationDate = drItem["fecha_seg"].ToString(),
+                        reason = drItem["motivo_seg"].ToString()
+                    });
+                }
             }
-            else
-            {
-                eventRegistry = null;
-            };
-            return (eventRegistry);
+            return (eventRegistryList);
         }
 
     }
