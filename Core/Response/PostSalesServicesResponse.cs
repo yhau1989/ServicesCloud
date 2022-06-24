@@ -106,7 +106,7 @@ namespace Core.Response
         public string repairType { get; set; }
         public string completionType { get; set; }
         public string repairWorkshop { get; set; }
-        public string repairReson { get; set; }
+        public string repairReason { get; set; }
         public string creationDate { get; set; }
         public string completionDate { get; set; }
         public string serviceDuration { get; set; }
