@@ -155,10 +155,10 @@ namespace Infraestructure.Compras
         private SaleReturnProd GetSaleReturnProd(DataTable dt, int emisor, int factura, int ptovta, string idItem)
         {                        
             DataRow[] drProcuto = null;
-            drProcuto = dt.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta} and COD_ARTICULO='{idItem}' and tipo_producto='Producto'");
+            drProcuto = dt.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta} and COD_ARTICULO='{idItem}' and tipo_producto='STOCK'");
 
             DataRow[] drGex = null;
-            drGex = dt.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta} and COD_ARTICULO='{idItem}' and tipo_producto='Garantia'");
+            drGex = dt.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta} and COD_ARTICULO='{idItem}' and tipo_producto='WARRANTY'");
 
             SaleReturnProd saleReturn = new SaleReturnProd();
 
@@ -172,7 +172,7 @@ namespace Infraestructure.Compras
                     brandName = drProcuto[0]["brandName"].ToString(),
                     posIdentity = new PosIdentity()
                     {
-                        warrantyDuration = (drGex.Count() > 0 ? drGex[0]["PlazoDesc_GEX"].ToString() : "")
+                        warrantyDuration = (drGex.Count() > 0 ? drGex[0]["warrantyDuration"].ToString() : "")
                     },
                     upc = drProcuto[0]["upc"].ToString(),
                     NumberCAE = drProcuto[0]["fa_numcae"].ToString(),
@@ -200,7 +200,7 @@ namespace Infraestructure.Compras
            // drProcuto = dt.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta} and COD_ARTICULO='{idItem}' and tipo_producto='Producto'");
 
             DataRow[] drGex = null;
-            drGex = dt.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta} and COD_ARTICULO='{idItem}' and tipo_producto='Garantia'");
+            drGex = dt.Select($"EM_CODIGO={emisor} and FT_IDFACT={factura} and TF_TIPFAC={ptovta} and COD_ARTICULO='{idItem}' and tipo_producto='WARRANTY'");
 
             SaleReturnGex saleReturn = new SaleReturnGex();
 
@@ -208,9 +208,9 @@ namespace Infraestructure.Compras
 
             if (drGex.Count() > 0)
             {
-                saleReturn.warrantyDuration = drGex[0]["PlazoDesc_GEX"].ToString();
+                saleReturn.warrantyDuration = drGex[0]["warrantyDuration"].ToString();
                 saleReturn.warrantyMonthsDuration = drGex[0]["Plazo_Gex"].ToString();
-                saleReturn.warrantyContractId = drGex[0]["tipo_garantia"].ToString(); 
+                saleReturn.warrantyContractId = drGex[0]["warrantyContractId"].ToString(); 
                 saleReturn.warrantyDocumentNumber = drGex[0]["warrantyDocumentNumber"].ToString();
                 saleReturn.warrantyPurchaseDate = drGex[0]["warrantyPurchaseDate"].ToString();
                 saleReturn.quantity = Convert.ToInt32(drGex[0]["ft_cant"]);

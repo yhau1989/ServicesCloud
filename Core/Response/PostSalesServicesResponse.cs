@@ -73,6 +73,21 @@ namespace Core.Response
         public string model { get; set; }
         public string serial { get; set; }
         public string accesories { get; set; }
+
+
+        public string status { get; set; }
+        public string repairType { get; set; }
+        public string completionType { get; set; }
+        public string repairWorkshop { get; set; }
+        public string repairReason { get; set; }
+        public string creationDate { get; set; }
+        public string completionDate { get; set; }
+        public string serviceDuration { get; set; }
+        public string damage { get; set; }
+        public string borrowStatus { get; set; }
+        public string borrowComment { get; set; }
+
+
     }
 
   
@@ -90,10 +105,10 @@ namespace Core.Response
         public decimal total { get; set; }
         public decimal downPayment { get; set; }
         public decimal pendingPayment { get; set; }
-        public decimal invoiceNumber { get; set; }
+        public string invoiceNumber { get; set; }
         public decimal downPaymentNumber { get; set; }
         public string CustomerInvoiceNumber { get; set; }
-        public decimal VendorTaxId { get; set; }
+        public string VendorTaxId { get; set; }
         public string VendorName { get; set; }
         public string VendorInvoiceData { get; set; }
     }
@@ -102,17 +117,6 @@ namespace Core.Response
     {
         public int serviceOrderId { get; set; }
         public string countryISOCode { get; set; }
-        public string status { get; set; }
-        public string repairType { get; set; }
-        public string completionType { get; set; }
-        public string repairWorkshop { get; set; }
-        public string repairReason { get; set; }
-        public string creationDate { get; set; }
-        public string completionDate { get; set; }
-        public string serviceDuration { get; set; }
-        public string damage { get; set; }
-        public string borrowStatus { get; set; }
-        public string borrowComment { get; set; }
         public CustomerPostSerice customer { get; set; }
         public AddressDetail addressDetail { get; set; }
         public PhoneDetail phoneDetail { get; set; }

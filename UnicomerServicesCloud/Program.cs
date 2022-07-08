@@ -1,6 +1,7 @@
 using Core.Interfaces;
 using Infraestructure;
 using Infraestructure.Compras;
+using Infraestructure.HistoricoCreditos;
 using Infraestructure.PostSalesServices;
 
 
@@ -18,6 +19,8 @@ builder.Services.AddSwaggerGen();
 //Injeccion de dependencias
 builder.Services.AddTransient<IHistoricoCompras, HistoricoCompras>();
 builder.Services.AddTransient<IPostSalesServices, PostSalesServices>();
+builder.Services.AddTransient<IHistoricoCreditos, HistoricoCreditos>();
+
 
 
 

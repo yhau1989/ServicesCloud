@@ -59,11 +59,48 @@ namespace Infraestructure.PostSalesServices
 
             foreach (DataRow drCab in DtCabecera.Rows)
             {
-               
-                postSalesServicesResponse = new PostSalesServicesResponse()
+                var customerBase = new CustomerPostSerice()
                 {
-                    serviceOrderId = Convert.ToInt32(drCab["num_os"]),
-                    countryISOCode = drCab["isoCode"].ToString(),
+                    customerId = drCab["customerId"].ToString(),
+                    fullName = drCab["Full_Name"].ToString(),
+                    firstName = drCab["firstName"].ToString(),
+                    secondName = drCab["secondName"].ToString(),
+                    thirdName = drCab["thirdName"].ToString(),
+                    lastName = drCab["lastName"].ToString(),
+                    secondLastName = drCab["secondLastName"].ToString(),
+                    marriedLastName = drCab["marriedLastName"].ToString(),
+                    vip = drCab["vip"].ToString(),
+                    idDetail = new List<IdDetail>() { new IdDetail { idType = drCab["cl_tipdoc"].ToString(), idDescription = drCab["des_tipodoc"].ToString(), idNumber = drCab["idNumber"].ToString() } },
+                };
+
+                var addressDetailBase = new AddressDetail()
+                {
+                    stateRegionId = drCab["stateRegionId"].ToString(),
+                    stateRegion = drCab["stateRegion"].ToString(),
+                    cityId = drCab["cityId"].ToString(),
+                    city = drCab["city"].ToString(),
+                    neighborhoodId = drCab["neighborhoodId"].ToString(),
+                    neighborhood = drCab["neighborhood"].ToString(),
+                    addressLine1 = drCab["direccion_destinatario"].ToString(),
+                };
+
+                var phoneDetailBase = new PhoneDetail()
+                {
+                    phoneNumberType = drCab["phoneNumberType"].ToString(),
+                    phoneNumberId = drCab["telefono_destinatario"].ToString(),
+                };
+
+                var productDetailBase = new ProductDetail()
+                {
+                    description = drCab["IT_DESITE"].ToString(),
+                    chain = drCab["ca_nombre"].ToString(),
+                    store = drCab["Emisor_Factura"].ToString(),
+                    serviceOrderSource = drCab["Emisor_Factura"].ToString(),
+                    item = drCab["COD_ARTICULO"].ToString(),
+                    brand = drCab["marca"].ToString(),
+                    model = drCab["model"].ToString(),
+                    serial = drCab["SERIE"].ToString(),
+                    accesories = drCab["accesories"].ToString(),
                     status = drCab["Estado_Orden"].ToString(),
                     repairType = drCab["Tipo_Orden"].ToString(),
                     completionType = drCab["Ult_estado_cierre"].ToString(),
@@ -74,68 +111,40 @@ namespace Infraestructure.PostSalesServices
                     damage = drCab["des_danio"].ToString(),
                     borrowStatus = drCab["borrowStatus"].ToString(),
                     borrowComment = drCab["borrowComment"].ToString(),
-                    customer = new CustomerPostSerice()
-                    {
-                        customerId = drCab["customerId"].ToString(),
-                        fullName = drCab["Full_Name"].ToString(),
-                        firstName = drCab["firstName"].ToString(),
-                        secondName = drCab["secondName"].ToString(),
-                        thirdName = drCab["thirdName"].ToString(),
-                        lastName = drCab["lastName"].ToString(),
-                        secondLastName = drCab["secondLastName"].ToString(),
-                        marriedLastName = drCab["marriedLastName"].ToString(),
-                        vip = drCab["vip"].ToString(),
-                        idDetail = new List<IdDetail>() { new IdDetail { idType = drCab["cl_tipdoc"].ToString(), idDescription = drCab["des_tipodoc"].ToString(), idNumber = drCab["idNumber"].ToString()  } },
-                     },
-                    addressDetail = new AddressDetail()
-                    {
-                        stateRegionId = drCab["stateRegionId"].ToString(),
-                        stateRegion = drCab["stateRegion"].ToString(),                        
-                        cityId = drCab["cityId"].ToString(),
-                        city = drCab["city"].ToString(),
-                        neighborhoodId = drCab["neighborhoodId"].ToString(),
-                        neighborhood = drCab["neighborhood"].ToString(),
-                        addressLine1 = drCab["direccion_destinatario"].ToString(),
-                    },
-                    phoneDetail = new PhoneDetail()
-                    {
-                        phoneNumberType = drCab["phoneNumberType"].ToString(),                        
-                        phoneNumberId = drCab["telefono_destinatario"].ToString(),
-                    },
-                    productDetail = new ProductDetail()
-                    {
-                        description  = drCab["IT_DESITE"].ToString(),
-                        chain = drCab["ca_nombre"].ToString(),
-                        store = drCab["Emisor_Factura"].ToString(),
-                        serviceOrderSource = drCab["Emisor_Factura"].ToString(),
-                        item = drCab["COD_ARTICULO"].ToString(),
-                        brand = drCab["marca"].ToString(),
-                        model = drCab["model"].ToString(),
-                        serial = drCab["SERIE"].ToString(),
-                        accesories = drCab["accesories"].ToString(),
-                    },                    
+                };
+
+                var serviceCostBase = new ServiceCost()
+                {
+                    spareParts = Convert.ToInt32(drCab["spareParts"].ToString()),
+                    miscellaneous = Convert.ToDecimal(drCab["miscellaneous"].ToString()),
+                    transportation = Convert.ToDecimal(drCab["transportation"].ToString()),
+                    labor = Convert.ToDecimal(drCab["labor"].ToString()),
+                    subTotal = Convert.ToDecimal(drCab["subTotal"].ToString()),
+                    discount = Convert.ToDecimal(drCab["discount"].ToString()),
+                    netTotal = Convert.ToDecimal(drCab["netTotal"].ToString()),
+                    tax = Convert.ToDecimal(drCab["tax"].ToString()),
+                    total = (drCab["total"] != null && drCab["total"].ToString().Length > 0) ? Convert.ToDecimal(drCab["total"].ToString()) : 0,
+                    downPayment = Convert.ToDecimal(drCab["downPayment"].ToString()),
+                    pendingPayment = Convert.ToDecimal(drCab["pendingPayment"].ToString()),
+                    invoiceNumber = drCab["FACTURA_FULL_PROV"].ToString(),
+                    downPaymentNumber = Convert.ToDecimal(drCab["downPaymentNumber"].ToString()),
+                    CustomerInvoiceNumber = drCab["Factura_Full_cli"].ToString(),
+                    VendorTaxId = drCab["IdProv"].ToString(),
+                    VendorName = drCab["NomProv"].ToString(),
+                    VendorInvoiceData = drCab["FchProv"].ToString(),
+                };
+
+                postSalesServicesResponse = new PostSalesServicesResponse()
+                {
+                    serviceOrderId = Convert.ToInt32(drCab["num_os"]),
+                    countryISOCode = drCab["isoCode"].ToString(),
+                    customer = customerBase,
+                    addressDetail = addressDetailBase,
+                    phoneDetail = phoneDetailBase,
+                    productDetail = productDetailBase,                    
                     changeRegistry = GetChangeRegistry(DtCambio, Convert.ToInt32(drCab["num_os"]), Convert.ToInt32(drCab["cod_emisor_fac"])),
                     eventRegistry =  GetEventRegistry(DtDetalleSeguimiento, Convert.ToInt32(drCab["num_os"]), Convert.ToInt32(drCab["cod_emisor_fac"])),                   
-                    serviceCost = new ServiceCost()
-                     {
-                        spareParts = Convert.ToInt32(drCab["spareParts"].ToString()),
-                        miscellaneous = Convert.ToDecimal(drCab["miscellaneous"].ToString()),
-                        transportation = Convert.ToDecimal(drCab["transportation"].ToString()),
-                        labor = Convert.ToDecimal(drCab["labor"].ToString()),
-                        subTotal = Convert.ToDecimal(drCab["subTotal"].ToString()),
-                        discount = Convert.ToDecimal(drCab["discount"].ToString()),
-                        netTotal = Convert.ToDecimal(drCab["netTotal"].ToString()),
-                        tax = Convert.ToDecimal(drCab["tax"].ToString()),
-                        total = (drCab["total"] != null &&  drCab["total"].ToString().Length > 0) ? Convert.ToDecimal(drCab["total"].ToString()) : 0, 
-                        downPayment = Convert.ToDecimal(drCab["downPayment"].ToString()),
-                        pendingPayment = Convert.ToDecimal(drCab["pendingPayment"].ToString()),
-                        invoiceNumber = (drCab["FACTURA_FULL_PROV"] != null && drCab["FACTURA_FULL_PROV"].ToString().Length > 0) ? Convert.ToDecimal(drCab["FACTURA_FULL_PROV"].ToString()) : 0,
-                        downPaymentNumber = Convert.ToDecimal(drCab["downPaymentNumber"].ToString()),
-                        CustomerInvoiceNumber = drCab["Factura_Full_cli"].ToString(),
-                        VendorTaxId = Convert.ToDecimal(drCab["IdProv"].ToString()),
-                        VendorName = drCab["NomProv"].ToString(),
-                        VendorInvoiceData = drCab["FchProv"].ToString(),
-                    }
+                    serviceCost = serviceCostBase
                 };           
                 ListPostSalesServicesResponse.Add(postSalesServicesResponse);
             }
