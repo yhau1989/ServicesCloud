@@ -75,7 +75,7 @@
     {
 
         public object warrantyDuration { get; set; }
-        public object warrantyMonthsDuration { get; set; }
+        public object wntyMonthsDuration { get; set; }
         public ItemGex item { get; set; }
         public object warrantyContractId { get; set; }
         public string warrantyDocumentNumber { get; set; }

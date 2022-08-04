@@ -28,8 +28,6 @@ namespace Infraestructure.Compras
 
             //desencriptando cadena
             string cConexion = _configuration["AppSettings:ConnectionStringASA17"];
-            byte[] toBytes = Encoding.UTF8.GetBytes(cConexion);
-            byte[] ketToBytes = Encoding.UTF8.GetBytes("xxxTokenxxx");
             cConexion = testMD5.decrypt(cConexion);
             //desencriptando cadena
 
@@ -209,7 +207,7 @@ namespace Infraestructure.Compras
             if (drGex.Count() > 0)
             {
                 saleReturn.warrantyDuration = drGex[0]["warrantyDuration"].ToString();
-                saleReturn.warrantyMonthsDuration = drGex[0]["Plazo_Gex"].ToString();
+                saleReturn.wntyMonthsDuration = drGex[0]["Plazo_Gex"].ToString();
                 saleReturn.warrantyContractId = drGex[0]["warrantyContractId"].ToString(); 
                 saleReturn.warrantyDocumentNumber = drGex[0]["warrantyDocumentNumber"].ToString();
                 saleReturn.warrantyPurchaseDate = drGex[0]["warrantyPurchaseDate"].ToString();

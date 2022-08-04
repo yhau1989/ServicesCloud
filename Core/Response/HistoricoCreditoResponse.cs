@@ -32,7 +32,7 @@ namespace Core.Response
     {
         public string transactionUser {get; set;}
         public string statusId {get; set;}
-        public decimal creditRequestId {get; set;}
+        public Int64 creditRequestId {get; set;}
         public string asignedUser {get; set;}
         public string storeName {get; set;}
         public string storeId {get; set;}
@@ -76,7 +76,7 @@ namespace Core.Response
         public string portfolioSubSegmentDescription {get; set;}
         public decimal arrearsInterestBalance {get; set;}
         public decimal installmentAmount {get; set;}
-        public Int32 creditRequestId {get; set;}
+        public Int64 creditRequestId {get; set;}
         public decimal minimunPayment {get; set;}
         public string portfolioSubSegmentId {get; set;}
         public string portfolioSegmentId {get; set;}
