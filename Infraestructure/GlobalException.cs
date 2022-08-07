@@ -7,9 +7,23 @@ using System.Net;
 
 namespace Infraestructure
 {
+    /// <summary>
+    /// Clase para menejar errores de forma global en todos los endpoints
+    /// </summary>
+    /// <![CDATA[ 
+    /// Autor: Samuel Pilay Muñoz - UNICOMER
+    /// fecha creación: 28/07/2022
+    /// ]]>
     public class GlobalException : IExceptionFilter
     {
-
+        /// <summary>
+        /// Retorna el detalle de las exepciones de los errores
+        /// </summary>
+        /// <param name="context">Contexto del error capturado</param>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         public void OnException (ExceptionContext context)
         {
 

@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Tools
 {
-    //objeto para todas las transacciones de base de datos
+    /// <summary>
+    /// Clase base
+    /// </summary>
+    /// <![CDATA[ 
+    /// Autor: Samuel Pilay - UNICOMER
+    /// fecha creación: 19-07-022
+    /// ]]>
     public class ResponseMsg
     {
         public int status { get; set; }

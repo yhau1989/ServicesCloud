@@ -7,19 +7,46 @@ using System.Data.Odbc;
 using System.Text;
 using Tools;
 
+
 namespace Infraestructure.Compras
 {
+    /// <summary>
+    /// Clase que retorna toda la logica para el enpoint sterops/retail-transaction
+    /// </summary>
+    /// <![CDATA[ 
+    /// Autor: Samuel Pilay Muñoz - UNICOMER
+    /// fecha creación: 28/07/2022
+    /// ]]>
     public class HistoricoCompras : IHistoricoCompras
     {
         DbSybaseServiceOdbc dbSybaseServiceOdbc;
         private readonly IConfiguration _configuration;
 
+
+        /// <summary>
+        /// Contructor
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         public HistoricoCompras(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-      
 
+
+
+        /// <summary>
+        /// Metodo que encapsula toda la logica
+        /// </summary>
+        /// <param name="id_number">ci del cliente</param>
+        /// <returns>List<RetailTransactionResponse></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         public List<RetailTransactionResponse> Get(string id_number)
         {
             DataTable DtTotal = new DataTable();
@@ -48,6 +75,19 @@ namespace Infraestructure.Compras
             return (ListHitoricoComprasCliente);
         }
 
+
+
+        /// <summary>
+        /// Arma la estructura del json de respuesta a partir de los datos que retorna el sp SP_SCloud_Facturas desde ASA
+        /// </summary>
+        /// <param name="DtTotal">tabla 1 del sp SP_SCloud_Facturas</param>
+        /// <param name="DtCabecera">tabla 2 del sp SP_SCloud_Facturas</param>
+        /// <param name="DtDetalle">tabla 3 del sp SP_SCloud_Facturas</param>
+        /// <returns>List<RetailTransactionResponse></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private List<RetailTransactionResponse> FillHistorioCompras(DataTable DtTotal, DataTable DtCabecera, DataTable DtDetalle)
         {
             DataTable dtTransactionDocument = new DataTable();
@@ -97,6 +137,19 @@ namespace Infraestructure.Compras
             return (ListretailTransaction);
         }
 
+
+
+        /// <summary>
+        /// Arma la estructura del json de respuesta a partir de los datos que retorna el sp SP_SCloud_Facturas desde ASA
+        /// </summary>
+        /// <param name="Tipo_Doc">tipo de documento de identidad</param>
+        /// <param name="Factura_full"></param>
+        /// <param name="Fecha_Doc"></param>
+        /// <returns>List<TransactionDocument></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private List<TransactionDocument> GetTransactionDocument(string Tipo_Doc, string Factura_full, string Fecha_Doc)
         {
             List<TransactionDocument> transactionDocuments = new List<TransactionDocument>();
@@ -108,6 +161,21 @@ namespace Infraestructure.Compras
             return transactionDocuments;
         }
 
+
+
+
+        /// <summary>
+        ///  arma la seccion del json LineItems
+        /// </summary>
+        /// <param name="DtDetalle"></param>
+        /// <param name="emisor"></param>
+        /// <param name="factura"></param>
+        /// <param name="ptovta"></param>
+        /// <returns>List<Object></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private List<Object> GetLineItem(DataTable DtDetalle, int emisor, int factura, int ptovta)
         {
             // selecciono la factura con que voy a trabajar 
@@ -150,6 +218,21 @@ namespace Infraestructure.Compras
             return (listlineItem);
         }
 
+
+
+        /// <summary>
+        /// Arma la seccion del json SaleReturn
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="emisor"></param>
+        /// <param name="factura"></param>
+        /// <param name="ptovta"></param>
+        /// <param name="idItem"></param>
+        /// <returns>SaleReturnProd</returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private SaleReturnProd GetSaleReturnProd(DataTable dt, int emisor, int factura, int ptovta, string idItem)
         {                        
             DataRow[] drProcuto = null;
@@ -191,6 +274,23 @@ namespace Infraestructure.Compras
             return (saleReturn);
         }
 
+
+
+
+        /// <summary>
+        /// Arma la seccion del json SaleReturnGex
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="emisor"></param>
+        /// <param name="factura"></param>
+        /// <param name="ptovta"></param>
+        /// <param name="idItem"></param>
+        /// <param name="existeGex"></param>
+        /// <returns>SaleReturnGex</returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private SaleReturnGex GetSaleReturnGex(DataTable dt, int emisor, int factura, int ptovta, string idItem, ref bool existeGex)
         {
 

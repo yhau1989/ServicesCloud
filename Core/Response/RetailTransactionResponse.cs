@@ -1,4 +1,8 @@
-﻿namespace Core.Response
+﻿
+/// <summary>
+/// Clses para formar el json response de los metodos de historicos de compras
+/// </summary>
+namespace Core.Response
 {
     public class TransactionDocument
     {

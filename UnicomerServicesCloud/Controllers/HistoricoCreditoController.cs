@@ -17,6 +17,16 @@ namespace UnicomerServicesCloud.Controllers
         private Logger logger = null;
         private string nameApp;
 
+
+        /// <summary>
+        /// Construnctor
+        /// </summary>
+        /// <param name="configuration">Objeto interfaz</param>
+        /// <param name="historicoCreditos">Objeto interfaz</param>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay - UNICOMER
+        /// fecha creación: 19-07-022
+        /// ]]>
         public HistoricoCreditoController(IConfiguration configuration, IHistoricoCreditos historicoCreditos)
         {
             _config = configuration;
@@ -28,6 +38,16 @@ namespace UnicomerServicesCloud.Controllers
             nameApp = config.GetValue<string>("nameApp");
         }
 
+
+
+        /// <summary>
+        /// metodo de entrada del endpoint
+        /// </summary>
+        /// <param name="id_type">tipo de identificacion</param>
+        /// <param name="id_number">ci del cliente</param>
+        /// <param name="get_history">indicador de listar historico</param>
+        /// <param name="countryISOCode">codigo del pais</param>
+        /// <returns></returns>
         [Route("external-credits/sales-quotations"), HttpGet]
         [Route("credits/sales-quotations"), HttpGet]
         public ActionResult Credits(string id_type, string id_number, string get_history, string countryISOCode)

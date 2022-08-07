@@ -1,5 +1,15 @@
-﻿namespace Infraestructure
+﻿
+
+/// <summary>
+/// Clases base para los json de response
+/// </summary>
+/// <![CDATA[ 
+/// Autor: Samuel Pilay Muñoz
+/// fecha creación: 28/07/2022
+/// ]]>
+namespace Infraestructure
 {
+
     public class ResponseError
     {
         public string code { get; set; }

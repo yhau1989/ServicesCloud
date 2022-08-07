@@ -18,6 +18,16 @@ namespace UnicomerServicesCloud.Controllers
         private Logger logger = null;
         private string nameApp;
 
+
+        /// <summary>
+        /// Construnctor
+        /// </summary>
+        /// <param name="configuration">Objeto interfaz</param>
+        /// <param name="historicoCompras">Objeto interfaz</param>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay - UNICOMER
+        /// fecha creación: 19-07-022
+        /// ]]>
         public HistoricoCompraController(IConfiguration configuration, IHistoricoCompras historicoCompras)
         {
             _config = configuration;
@@ -31,6 +41,12 @@ namespace UnicomerServicesCloud.Controllers
     
         
 
+        /// <summary>
+        /// metodo de entrada del endpoint 
+        /// </summary>
+        /// <param name="id_number">ci del cliente</param>
+        /// <param name="countryISOCode">codigo de pais</param>
+        /// <returns></returns>
         [Route("external-storeops/retail-transactions"), HttpGet]
         [Route("storeops/retail-transactions"), HttpGet]
         public ActionResult Storeops(string id_number, string countryISOCode)       

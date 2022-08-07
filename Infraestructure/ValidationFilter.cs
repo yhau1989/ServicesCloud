@@ -2,10 +2,22 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net;
 
+
 namespace Infraestructure
 {
+    /// <summary>
+    /// Clase que intersecta los request y los valida
+    /// </summary>
+    /// <![CDATA[ 
+    /// Autor: Samuel Pilay Muñoz
+    /// fecha creación: 28/07/2022
+    /// ]]>
     public class ValidationFilter :  ActionFilterAttribute
     {
+        /// <summary>
+        /// Implementación para personalizar los response en de estados de error 
+        /// </summary>
+        /// <param name="context">contexto del request interceptado</param>
         public override void OnResultExecuting(ResultExecutingContext context)
         {
             List<ResponseError> errors = new List<ResponseError>();

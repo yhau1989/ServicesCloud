@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace Tools
 {
+    /// <summary>
+    /// Clase que maneja la persistencia con la base de oracle
+    /// </summary>
     public class DbOracleContext
     {
         private string cConexion, nameApp = "";
@@ -43,11 +46,11 @@ namespace Tools
 
 
         /// <summary>
-        /// 
+        /// ejecuta el sp sp_scloud_creditosora
         /// </summary>
-        /// <param name="emisor"></param>
-        /// <param name="numSolicitude"></param>
-        /// <param name="client"></param>
+        /// <param name="emisor">codigo de emisor</param>
+        /// <param name="numSolicitude">numero de solicitud</param>
+        /// <param name="client">ci del cliente</param>
         /// <returns></returns>
         /// <![CDATA[ 
         /// Autor: Samuel Pilay - UNICOMER

@@ -11,13 +11,23 @@ namespace UnicomerServicesCloud.Controllers
     public class PostSalesServicesController : Controller
     { 
 
-         private readonly IPostSalesServices _postSalesServices;
+        private readonly IPostSalesServices _postSalesServices;
 
         private readonly IConfiguration _config;
         private IConfiguration config;
         private Logger logger = null;
         private string nameApp;
 
+
+
+        /// <summary>
+        /// Construnctor
+        /// </summary>
+        /// <param name="postSalesServices">Objeto interfaz</param>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay - UNICOMER
+        /// fecha creación: 19-07-022
+        /// ]]>
         public PostSalesServicesController(IPostSalesServices postSalesServices)
         {
             _postSalesServices = postSalesServices;
@@ -40,6 +50,15 @@ namespace UnicomerServicesCloud.Controllers
         //    return Ok(result);
         //}
 
+
+
+
+        /// <summary>
+        /// metodo de entrada del endpoint
+        /// </summary>
+        /// <param name="id_number">ci del cliente</param>
+        /// <param name="countryISOCode">codigo del pais</param>
+        /// <returns></returns>
         [Route("post-sales/service-orders"), HttpGet]
         [Route("external-post-sales/service-orders"), HttpGet]
         public ActionResult PostSales(string id_number, string countryISOCode)

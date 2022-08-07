@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Clses para formar el json response de los metodos de historicos de creditos
+/// </summary>
 namespace Core.Response
 {
     public class RootHistoricoCreditoResponse

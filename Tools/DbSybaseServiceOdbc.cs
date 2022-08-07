@@ -5,7 +5,10 @@ namespace DbSybaseService
     /// <summary>
     /// CONEXIÓN A BASE SYBASE
     /// </summary>
-    /// 
+    /// <![CDATA[ 
+    /// Autor: Samuel Pilay - UNICOMER
+    /// fecha creación: 19-07-022
+    /// ]]>
     public class DbSybaseServiceOdbc
     {
         public ConnectionInfo ConnectionInfo { get; set; }

@@ -29,11 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Responses\HistoricoCompra\" />
-    <Folder Include="Responses\PostSalesServices\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\Infraestructure\Infraestructure.csproj" />
   </ItemGroup>

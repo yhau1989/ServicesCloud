@@ -9,17 +9,42 @@ using Tools;
 
 namespace Infraestructure.PostSalesServices
 {
+    /// <summary>
+    /// Clase que maneja toda la logica del endpoint post-sales/service-orders
+    /// </summary>
+    /// <![CDATA[ 
+    /// Autor: Samuel Pilay Muñoz
+    /// fecha creación: 28/07/2022
+    /// ]]>
     public class PostSalesServices : IPostSalesServices
     {
 
         DbSybaseServiceOdbc dbSybaseServiceOdbc;
         private readonly IConfiguration _configuration;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz
+        /// fecha creación: 28/07/2022
+        /// ]]>
         public PostSalesServices(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
+
+        /// <summary>
+        /// Metodo que encapsula toda la logica
+        /// </summary>
+        /// <param name="id_number">ci del cliente</param>
+        /// <returns>List<PostSalesServicesResponse></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz
+        /// fecha creación: 28/07/2022
+        /// ]]>
         public List<PostSalesServicesResponse> Get(string id_number)
         {
 
@@ -52,6 +77,18 @@ namespace Infraestructure.PostSalesServices
             return (ListPostSalesServices);
         }
 
+
+        /// <summary>
+        /// Arma la estructura del json de respuesta a partir de los datos que retorna el sp SP_SCloud_Servifacil desde ASA
+        /// </summary>
+        /// <param name="DtCabecera">tabla 1 del sp SP_SCloud_Servifacil</param>
+        /// <param name="DtCambio">tabla 2 del sp SP_SCloud_Servifacil</param>
+        /// <param name="DtDetalleSeguimiento">tabla 3 del sp SP_SCloud_Servifacil</param>
+        /// <returns>List<PostSalesServicesResponse></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private List<PostSalesServicesResponse> FillPostSalesServices(DataTable DtCabecera, DataTable DtCambio, DataTable DtDetalleSeguimiento)
         {
             List<PostSalesServicesResponse> ListPostSalesServicesResponse = new List<PostSalesServicesResponse>();
@@ -151,6 +188,19 @@ namespace Infraestructure.PostSalesServices
             return ListPostSalesServicesResponse;
         }
 
+
+
+        /// <summary>
+        /// Retorna la data para la seccion del json "ChangeRegistry"
+        /// </summary>
+        /// <param name="DtCambio">tabla 2 del sp SP_SCloud_Servifacil</param>
+        /// <param name="os">services order</param>
+        /// <param name="emisor">codigo de emisor</param>
+        /// <returns>List<ChangeRegistry></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private List<ChangeRegistry> GetChangeRegistry(DataTable DtCambio, int os, int emisor)
         {                        
             DataRow[] dr = DtCambio.Select($"num_os={os} and cod_emisor_fac={emisor}");
@@ -170,6 +220,19 @@ namespace Infraestructure.PostSalesServices
             
             return (changeRegistryList);
         }
+
+
+        /// <summary>
+        /// Retorna la data para la seccion del json "EventRegistry"
+        /// </summary>
+        /// <param name="DtDetalleSeguimiento">tabla 3 del sp SP_SCloud_Servifacil</param>
+        /// <param name="os">services order</param>
+        /// <param name="emisor">codigo de emisor</param>
+        /// <returns>List<EventRegistry></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private List<EventRegistry> GetEventRegistry(DataTable DtDetalleSeguimiento, int os, int emisor)
         {
             DataRow[] dr = DtDetalleSeguimiento.Select($"num_os={os} and cod_emisor_fac={emisor}");

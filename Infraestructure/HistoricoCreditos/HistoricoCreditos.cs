@@ -9,6 +9,13 @@ using Tools;
 
 namespace Infraestructure.HistoricoCreditos
 {
+    /// <summary>
+    ///  Clase que maneja toda la logica del endpoint credits/sales-quotations
+    /// </summary>
+    /// <![CDATA[ 
+    /// Autor: Samuel Pilay Muñoz - UNICOMER
+    /// fecha creación: 28/07/2022
+    /// ]]>
     public class HistoricoCreditos : IHistoricoCreditos
     {
         DbSybaseServiceOdbc dbSybaseServiceOdbc;
@@ -17,6 +24,15 @@ namespace Infraestructure.HistoricoCreditos
         List<SalesQuotation> final;
 
 
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         public HistoricoCreditos(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -26,6 +42,16 @@ namespace Infraestructure.HistoricoCreditos
             //desencriptando cadena
         }
 
+
+        /// <summary>
+        /// Metodo que encapsula toda la logica
+        /// </summary>
+        /// <param name="id_number">ci del cliente</param>
+        /// <returns></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         public List<SalesQuotation> Get(string id_number)
         {
             //return exampleBasicJson;
@@ -34,10 +60,15 @@ namespace Infraestructure.HistoricoCreditos
         }
 
 
+
         /// <summary>
-        /// 
+        /// Genera un json de ejemplo segun la documentacion.
         /// </summary>
         /// <returns></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private List<SalesQuotation> exampleBasicJson() {
 
             List<SalesQuotation> creditos = new List<SalesQuotation>();
@@ -222,10 +253,15 @@ namespace Infraestructure.HistoricoCreditos
         }
 
 
+
         /// <summary>
-        /// 
+        /// Se conecta a Asa y ejecuta el sp SP_SCloud_Creditos
         /// </summary>
-        /// <param name="id_number"></param>
+        /// <param name="id_number">ci del cliente</param>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private void getAsadata(string id_number)
         {
             DataTable dtCabOrdenComp = new DataTable();
@@ -256,14 +292,18 @@ namespace Infraestructure.HistoricoCreditos
 
 
         /// <summary>
-        /// 
+        /// Arma la estructura del json de respuesta a partir de los datos que retorna el sp SP_SCloud_Creditos desde ASA
         /// </summary>
-        /// <param name="dtCabOrdenComp"></param>
-        /// <param name="dtDetOrdenComp"></param>
-        /// <param name="dtDetFacturas"></param>
-        /// <param name="dtDetInspecc"></param>
-        /// <param name="dtDetalleCoutas"></param>
+        /// <param name="dtCabOrdenComp">resultset de asa #CAB_ORDENCOMP</param>
+        /// <param name="dtDetOrdenComp">resultset de asa #DET_ORDENCOMP</param>
+        /// <param name="dtDetFacturas">resultset de asa #DET_FACTURAS</param>
+        /// <param name="dtDetInspecc">resultset de asa #DET_INSPECC</param>
+        /// <param name="dtDetalleCoutas">resultset de asa #Detalle_Cuotas</param>
         /// <returns></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private List<SalesQuotation> fillCreditRequestPool(DataTable dtCabOrdenComp, DataTable dtDetOrdenComp, DataTable dtDetFacturas, DataTable dtDetInspecc, DataTable dtDetalleCoutas)
         {
             List<SalesQuotation> pool = new List<SalesQuotation>();
@@ -288,12 +328,7 @@ namespace Infraestructure.HistoricoCreditos
                         status = creditRequestTable.Rows[0]["SI_DESCRI"].ToString()
                     };
 
-                    List<Item> lineItemList = new List<Item>();
-                    Item? item = makeLineItems(row["EM_CODIGO"].ToString(), row["CL_CEDRUC"].ToString(), row["SC_IDSOL"].ToString(), dtDetOrdenComp);
-                    if (item != null)
-                    {
-                        lineItemList.Add(item);
-                    }
+                    List<Item> lineItemList = makeLineItems(row["EM_CODIGO"].ToString(), row["CL_CEDRUC"].ToString(), row["SC_IDSOL"].ToString(), dtDetOrdenComp);
 
 
                     PlanDetail _planDetail = new PlanDetail()
@@ -334,12 +369,16 @@ namespace Infraestructure.HistoricoCreditos
 
 
         /// <summary>
-        /// 
+        /// Se conecta a Oracle para recuperar datos, encapsula la clase DbOracleContext
         /// </summary>
-        /// <param name="emCodigo"></param>
-        /// <param name="ciCdRuc"></param>
-        /// <param name="idSol"></param>
-        /// <param name="detOrdenComp"></param>
+        /// <param name="emCodigo">codigo de emisor</param>
+        /// <param name="ciCdRuc">ci del cliente</param>
+        /// <param name="idSol">is de solicitud de credito</param>
+        /// <param name="detOrdenComp">resultset de asa #CAB_ORDENCOMP</param>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private ResponseMsg getOracleData(string emCodigo, string ciCdRuc, string idSol, DataTable detOrdenComp)
         {
             // si #DET_ORDENCOMP tienen mas de una registro con EM_CODIGO, CL_CEDRUC, SC_IDSOL, con los mismos datos solo se toma el primero ya que en el json (creditRequest) esto es un objeto, no un array
@@ -369,22 +408,35 @@ namespace Infraestructure.HistoricoCreditos
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="emCodigo"></param>
-        /// <param name="ciCdRuc"></param>
-        /// <param name="idSol"></param>
-        /// <param name="dtDetOrdenComp"></param>
-        private Item? makeLineItems(string emCodigo, string ciCdRuc, string idSol, DataTable dtDetOrdenComp)
-        {
-            DataTable result = dtDetOrdenComp.Select($"EM_CODIGO={emCodigo} and CL_CEDRUC={ciCdRuc} and SC_IDSOL={idSol}").CopyToDataTable();
 
-            if (result.Rows.Count > 0)
+
+        /// <summary>
+        /// Retorna la data para la seccion del json "lineItems"
+        /// </summary>
+        /// <param name="emCodigo">codigo de emisor</param>
+        /// <param name="ciCdRuc">ci del cliente</param>
+        /// <param name="idSol">is de solicitud de credito</param>
+        /// <param name="dtDetOrdenComp">resultset de asa #DET_ORDENCOMP</param>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
+        private List<Item> makeLineItems(string emCodigo, string ciCdRuc, string idSol, DataTable dtDetOrdenComp)
+        {
+            List<Item> items = new List<Item>();
+
+            DataRow[] resultStock = dtDetOrdenComp.Select($"EM_CODIGO={emCodigo} and CL_CEDRUC={ciCdRuc} and SC_IDSOL={idSol} and Gex_item='STOCK'");
+            DataTable dataStock = (resultStock != null && resultStock.Length > 0) ? resultStock.CopyToDataTable() : new DataTable();
+            
+            DataRow[] resultWarranty = dtDetOrdenComp.Select($"EM_CODIGO={emCodigo} and CL_CEDRUC={ciCdRuc} and SC_IDSOL={idSol} and Gex_item='WARRANTY'");
+            DataTable dataWarranty = (resultWarranty != null && resultWarranty.Length > 0) ? resultWarranty.CopyToDataTable() : new DataTable();
+
+
+            if (dataStock.Rows.Count > 0)
             {
-                ItemDetail itemDetail = null;
+                ItemDetail itemDetail;
                 List<ItemDetail> listItemDetail = new List<ItemDetail>();
-                foreach (DataRow row in result.Rows)
+                foreach (DataRow row in dataStock.Rows)
                 {
                     itemDetail = new ItemDetail()
                     {
@@ -404,30 +456,66 @@ namespace Infraestructure.HistoricoCreditos
                     listItemDetail.Add(itemDetail);
                 }
 
-                return new Item()
+                items.Add(new Item()
                 {
-                    typeCode = "NO DEFINIDO", // no viene en la tabla, preguntar a jessica
+                    typeCode = "STOCK",
                     item = listItemDetail,
-                };
+                });
 
             }
 
-            return null;
+            if (dataWarranty.Rows.Count > 0)
+            {
+                ItemDetail itemDetail;
+                List<ItemDetail> listItemDetail = new List<ItemDetail>();
+                foreach (DataRow row in dataWarranty.Rows)
+                {
+                    itemDetail = new ItemDetail()
+                    {
+                        upc = row["COD_ARTICULO"].ToString(),
+                        brand = row["brandName"].ToString(),
+                        model = row["modelName"].ToString(),
+                        description = row["it_desite"].ToString(),
+                        price = Convert.ToDecimal(row["precio_base"].ToString()),
+                        quantity = Convert.ToInt32(row["sc_cant"].ToString()),
+                        discountType = row["discountType"].ToString(),
+                        discount = Convert.ToDecimal(row["Total_descts"].ToString()),
+                        netPrice = Convert.ToDecimal(row["Val_facturado"].ToString()),
+                        tax = Convert.ToDecimal(row["Iva_item"].ToString()),
+                        relatedItem = row["Tiene_Gex"].ToString(),
+                        warrantyDuration = row["Plazo_Gex"].ToString()
+                    };
+                    listItemDetail.Add(itemDetail);
+                }
+
+                items.Add(new Item()
+                {
+                    typeCode = "WARRANTY",
+                    item = listItemDetail,
+                });
+
+            }
+            
+            return items;
 
         }
 
 
 
         /// <summary>
-        /// 
+        /// Retorna la data para la seccion del json "creditApplications"
         /// </summary>
-        /// <param name="emCodigo"></param>
-        /// <param name="ciCdRuc"></param>
-        /// <param name="idSol"></param>
-        /// <param name="dtDetFacturas"></param>
-        /// <param name="dtDetInspecc"></param>
-        /// <param name="dtDetalleCoutas"></param>
+        /// <param name="emCodigo">codigo de emisor</param>
+        /// <param name="ciCdRuc">ci del cliente</param>
+        /// <param name="idSol">is de solicitud de credito</param>
+        /// <param name="dtDetFacturas">resultset de asa #DET_FACTURAS</param>
+        /// <param name="dtDetInspecc">resultset de asa #DET_INSPECC</param>
+        /// <param name="dtDetalleCoutas">resultset de asa #Detalle_Cuotas</param>
         /// <returns></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private List<CreditApplicationDetail> createListCreditApplicationDetail(string emCodigo, string ciCdRuc, string idSol, DataTable dtDetFacturas, DataTable dtDetInspecc, DataTable dtDetalleCoutas)
         {
             DataTable resultFacturas = dtDetFacturas.Select($"EM_CODIGO={emCodigo} and CL_CEDRUC={ciCdRuc} and SC_IDSOL={idSol}").CopyToDataTable();
@@ -491,13 +579,17 @@ namespace Infraestructure.HistoricoCreditos
 
 
         /// <summary>
-        /// 
+        /// Retorna la data para la seccion del json "installmentDetail"
         /// </summary>
-        /// <param name="emCodigo"></param>
-        /// <param name="ciCdRuc"></param>
-        /// <param name="idSol"></param>
-        /// <param name="dtDetalleCoutas"></param>
+        /// <param name="emCodigo">codigo de emisor</param>
+        /// <param name="ciCdRuc">ci del cliente</param>
+        /// <param name="idSol">is de solicitud de credito</param>
+        /// <param name="dtDetalleCoutas">resultset de asa #Detalle_Cuotas</param>
         /// <returns></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private List<InstallmentDetailItem> installmentDetails(string emCodigo, string ciCdRuc, string idSol, DataTable dtDetalleCoutas)
         {
             //DataRow[] searchs = dtDetalleCoutas.Select($"CT_CODEMI={emCodigo} and CT_CODCLI={ciCdRuc} and SC_IDSOL={idSol}");
@@ -536,13 +628,17 @@ namespace Infraestructure.HistoricoCreditos
 
 
         /// <summary>
-        /// 
+        /// Retorna la data para la seccion del json "paymentDatal"
         /// </summary>
-        /// <param name="emCodigo"></param>
-        /// <param name="ciCdRuc"></param>
-        /// <param name="idSol"></param>
-        /// <param name="dtDetalleCoutas"></param>
+        /// <param name="emCodigo">codigo de emisor</param>
+        /// <param name="ciCdRuc">ci del cliente</param>
+        /// <param name="idSol">is de solicitud de credito</param>
+        /// <param name="dtDetalleCoutas">resultset de asa #Detalle_Cuotas</param>
         /// <returns></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private List<PaymentDetailItem> paymentDetails(string emCodigo, string ciCdRuc, string idSol, DataTable dtDetalleCoutas)
         {
             //DataRow[] searchs = dtDetalleCoutas.Select($"CT_CODEMI={emCodigo} and CT_CODCLI={ciCdRuc} and SC_IDSOL={idSol}");
@@ -573,14 +669,18 @@ namespace Infraestructure.HistoricoCreditos
 
 
         /// <summary>
-        /// 
+        /// Retorna la data para la seccion del json "customer"
         /// </summary>
         /// <param name="dtCabOrdenComp"></param>
-        /// <param name="emCodigo"></param>
-        /// <param name="ciCdRuc"></param>
-        /// <param name="idSol"></param>
-        /// <param name="dtDetalleCoutas"></param>
+        /// <param name="emCodigo">codigo de emisor</param>
+        /// <param name="ciCdRuc">ci del cliente</param>
+        /// <param name="idSol">is de solicitud de credito</param>
+        /// <param name="dtDetalleCoutas">resultset de asa #Detalle_Cuotas</param>
         /// <returns></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private CustomerCredito createCustomer(DataRow dtCabOrdenComp, string emCodigo, string ciCdRuc, string idSol, DataTable dtDetalleCoutas)
         {
             CustomerCredito _customer = new CustomerCredito()
@@ -603,13 +703,17 @@ namespace Infraestructure.HistoricoCreditos
 
 
         /// <summary>
-        /// 
+        /// Retorna la data para la seccion del json "customer"
         /// </summary>
-        /// <param name="emCodigo"></param>
-        /// <param name="ciCdRuc"></param>
-        /// <param name="idSol"></param>
-        /// <param name="dtDetalleCoutas"></param>
+        /// <param name="emCodigo">codigo de emisor</param>
+        /// <param name="ciCdRuc">ci del cliente</param>
+        /// <param name="idSol">is de solicitud de credito</param>
+        /// <param name="dtDetalleCoutas">resultset de asa #Detalle_Cuotas</param>
         /// <returns></returns>
+        /// <![CDATA[ 
+        /// Autor: Samuel Pilay Muñoz - UNICOMER
+        /// fecha creación: 28/07/2022
+        /// ]]>
         private List<IdDetailCreditos> createCustomerItem(string emCodigo, string ciCdRuc, string idSol, DataTable dtDetalleCoutas)
         {
             //DataRow[] searchs = dtDetalleCoutas.Select($"CT_CODEMI={emCodigo} and CT_CODCLI={ciCdRuc} and SC_IDSOL={idSol}"); no viene SC_IDSOL en la tabla
