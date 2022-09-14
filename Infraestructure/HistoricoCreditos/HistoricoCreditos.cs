@@ -343,7 +343,7 @@ namespace Infraestructure.HistoricoCreditos
                     root = new SalesQuotation()
                     {
                         salesOrderId = row["sc_idsol"].ToString(),
-                        installmentAmount = Convert.ToDecimal(row["sc_idsol"].ToString()),
+                        installmentAmount = Convert.ToDecimal(row["sc_valcuo"].ToString()),
                         transactionDate = row["sc_fecha"].ToString(),
                         storeId = row["em_abrev"].ToString(),
                         tenderAmount = Convert.ToDecimal(row["Monto_Sol"].ToString()),
@@ -528,45 +528,43 @@ namespace Infraestructure.HistoricoCreditos
                 DataRow inspeccionRow1 = resultInspeccion.Rows[0]; //solo seleccionamos 1, ojo con esto
                 foreach (DataRow row in resultFacturas.Rows)
                 {
-                    CreditApplicationDetail creditApplicationDetail = new CreditApplicationDetail()
-                    {
-                        purchaseDate = row["ft_fecfac"].ToString(),
-                        portfolioSubSegmentDescription = row["Tipo_amort"].ToString(),
-                        arrearsInterestBalance = Convert.ToDecimal(row["DSCTO_MORA"].ToString()),
-                        installmentAmount = Convert.ToDecimal(row["sc_valcuo"].ToString()),
-                        creditRequestId = Convert.ToInt64(row["sc_numsol"].ToString()),
-                        minimunPayment = Convert.ToDecimal(row["VALOR_MAS_VENCIDO"].ToString()),
-                        portfolioSubSegmentId = row["sc_amort"].ToString(),
-                        portfolioSegmentId = row["sc_codcia"].ToString(),
-                        debtNoteNumber = row["sc_numope"].ToString(),
-                        capitalBalance = Convert.ToDecimal(row["SALDO_CAPITAL"].ToString()),
-                        totalSaleAmount = Convert.ToDecimal(row["sc_totfac"].ToString()),
-                        pendingInstallment = row["CUOTAS_PENDIENTES"].ToString(),
-                        pendingTotalInstallment = Convert.ToInt32(row["CUOTAS_TOTALES"].ToString()),
-                        creditTerm = Convert.ToInt32(row["pl_nplazo"].ToString()),
-                        paymentCycle = row["pl_diacuo"].ToString(),
-                        currentInterestBalance = Convert.ToDecimal(row["SALDO_INTERES"].ToString()),
-                        specialInterestBalance = Convert.ToDecimal(row["SALDO_GASTOS"].ToString()),
-                        portfolioSegmentDescription = row["em_nomgru"].ToString(),
-                        status = row["sc_estcre"].ToString(),
-                        expirationDate = row["sc_feculven"].ToString(),
-                        discountArrearsBalance = Convert.ToDecimal(row["DSCTO_MORA"].ToString()),
-                        discountSpecialInterestBalance = Convert.ToDecimal(row["DSCTO_GASTOS"].ToString()),
-                        averageArrear = Convert.ToDecimal(row["ATRASO_PROMEDIO"].ToString()),
-                        maxArrear = Convert.ToDecimal(row["ATRASO_MAXIMO"].ToString()),
-                        cancelationReason = row["RAZON_CANCELACION"].ToString(),
-                        daysInArrears = Convert.ToDecimal(row["atraso_antiguo"].ToString()),
-                        totalDue = Convert.ToDecimal(row["TOTAL_DEUDA"].ToString()),
-                        inspectionCreateDate = inspeccionRow1["ci_fecha"].ToString(),
-                        inspectionType = inspeccionRow1["TI_DESCRIPCION"].ToString(),
-                        inspectionClass = inspeccionRow1["CL_DESCRIP"].ToString(),
-                        inspectionStatus = inspeccionRow1["ESTADO_INSP"].ToString(),
-                        inspectionPerformedFlag = inspeccionRow1["ESTADO_CIERRE"].ToString(),
-                        inspectionResult = inspeccionRow1["RESULTADO"].ToString(),
-                        inspectionDate = inspeccionRow1["FECHA_MOD"].ToString(),
-                        installmentDetail = installmentDetails(emCodigo, ciCdRuc, idSol, dtDetalleCoutas),
-                        paymentDetail = paymentDetails(emCodigo, ciCdRuc, idSol, dtDetalleCoutas),
-                    };
+                    CreditApplicationDetail creditApplicationDetail = new CreditApplicationDetail();
+                    creditApplicationDetail.purchaseDate = row["ft_fecfac"].ToString();
+                    creditApplicationDetail.portfolioSubSegmentDescription = row["Tipo_amort"].ToString();
+                    creditApplicationDetail.arrearsInterestBalance = Convert.ToDecimal(row["DSCTO_MORA"].ToString());
+                    creditApplicationDetail.installmentAmount = row["sc_valcuo"].ToString().Length > 0 ? Convert.ToDecimal(row["sc_valcuo"].ToString()) : 0;
+                    creditApplicationDetail.creditRequestId = row["sc_numsol"].ToString().Length > 0 ? Convert.ToInt64(row["sc_numsol"].ToString()) : 0;
+                    creditApplicationDetail.minimunPayment = row["VALOR_MAS_VENCIDO"].ToString().Length > 0 ? Convert.ToDecimal(row["VALOR_MAS_VENCIDO"].ToString()) : 0;
+                    creditApplicationDetail.portfolioSubSegmentId = row["sc_amort"].ToString();
+                    creditApplicationDetail.portfolioSegmentId = row["sc_codcia"].ToString();
+                    creditApplicationDetail.debtNoteNumber = row["sc_numope"].ToString();
+                    creditApplicationDetail.capitalBalance = row["SALDO_CAPITAL"].ToString().Length > 0 ? Convert.ToDecimal(row["SALDO_CAPITAL"].ToString()) : 0;
+                    creditApplicationDetail.totalSaleAmount = row["sc_totfac"].ToString().Length > 0 ? Convert.ToDecimal(row["sc_totfac"].ToString()) : 0;
+                    creditApplicationDetail.pendingInstallment = row["CUOTAS_PENDIENTES"].ToString();
+                    creditApplicationDetail.pendingTotalInstallment = row["CUOTAS_TOTALES"].ToString().Length > 0 ? Convert.ToInt32(row["CUOTAS_TOTALES"].ToString()) : 0;
+                    creditApplicationDetail.creditTerm = row["pl_nplazo"].ToString().Length > 0 ? Convert.ToInt32(row["pl_nplazo"].ToString()) : 0;
+                    creditApplicationDetail.paymentCycle = row["pl_diacuo"].ToString();
+                    creditApplicationDetail.currentInterestBalance = row["SALDO_INTERES"].ToString().Length > 0 ? Convert.ToDecimal(row["SALDO_INTERES"].ToString()) : 0;
+                    creditApplicationDetail.specialInterestBalance = row["SALDO_GASTOS"].ToString().Length > 0 ? Convert.ToDecimal(row["SALDO_GASTOS"].ToString()) : 0;
+                    creditApplicationDetail.portfolioSegmentDescription = row["em_nomgru"].ToString();
+                    creditApplicationDetail.status = row["sc_estcre"].ToString();
+                    creditApplicationDetail.expirationDate = row["sc_feculven"].ToString();
+                    creditApplicationDetail.discountArrearsBalance = row["DSCTO_MORA"].ToString().Length > 0 ? Convert.ToDecimal(row["DSCTO_MORA"].ToString()) : 0;
+                    creditApplicationDetail.discountSpecialInterestBalance = row["DSCTO_GASTOS"].ToString().Length > 0 ? Convert.ToDecimal(row["DSCTO_GASTOS"].ToString()) : 0;
+                    creditApplicationDetail.averageArrear = row["ATRASO_PROMEDIO"].ToString().Length > 0 ? Convert.ToDecimal(row["ATRASO_PROMEDIO"].ToString()) : 0;
+                    creditApplicationDetail.maxArrear = row["ATRASO_MAXIMO"].ToString().Length > 0 ? Convert.ToDecimal(row["ATRASO_MAXIMO"].ToString()) : 0;
+                    creditApplicationDetail.cancelationReason = row["RAZON_CANCELACION"].ToString();
+                    creditApplicationDetail.daysInArrears = row["atraso_antiguo"].ToString().Length > 0 ? Convert.ToDecimal(row["atraso_antiguo"].ToString()) : 0;
+                    creditApplicationDetail.totalDue = row["TOTAL_DEUDA"].ToString().Length > 0 ? Convert.ToDecimal(row["TOTAL_DEUDA"].ToString()) : 0;
+                    creditApplicationDetail.inspectionCreateDate = inspeccionRow1["ci_fecha"].ToString();
+                    creditApplicationDetail.inspectionType = inspeccionRow1["TI_DESCRIPCION"].ToString();
+                    creditApplicationDetail.inspectionClass = inspeccionRow1["CL_DESCRIP"].ToString();
+                    creditApplicationDetail.inspectionStatus = inspeccionRow1["ESTADO_INSP"].ToString();
+                    creditApplicationDetail.inspectionPerformedFlag = inspeccionRow1["ESTADO_CIERRE"].ToString();
+                    creditApplicationDetail.inspectionResult = inspeccionRow1["RESULTADO"].ToString();
+                    creditApplicationDetail.inspectionDate = inspeccionRow1["FECHA_MOD"].ToString();
+                    creditApplicationDetail.installmentDetail = installmentDetails(emCodigo, ciCdRuc, idSol, dtDetalleCoutas);
+                    creditApplicationDetail.paymentDetail = paymentDetails(emCodigo, ciCdRuc, idSol, dtDetalleCoutas);
 
                     creditApplications.Add(creditApplicationDetail);
                 }
